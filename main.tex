@@ -1,0 +1,112 @@
+\documentclass[a4paper,11pt,english]{report}
+\setlength{\parskip}{\baselineskip}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage{hyperref}
+\makeatletter
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+
+%
+%--------------------   start of the 'preamble'
+%
+\usepackage{graphicx,amssymb,amstext,amsmath}
+\usepackage{listings}
+\usepackage{color, colortbl}
+\lstset{numbers=left, stepnumber=1, basicstyle=\scriptsize,}
+
+%
+%%    homebrew commands -- to save typing
+\newcommand\comp{\textsl{The Companion}}
+\newcommand\nss{\textsl{Not so Short}}
+\newcommand{\noun}[1]{\textsc{#1}}
+
+\definecolor{firebrick}{rgb}{0.98,0.15,0.04}
+\definecolor{gold}{rgb}{1,0.83,0}
+\definecolor{olive}{rgb}{0.49,0.89,0.1}
+\definecolor{red3}{rgb}{1,0,0}
+\definecolor{orangered}{rgb}{1,0.27,0}
+\definecolor{lightgold}{rgb}{1,0.93,0.55}
+\definecolor{chartreuse3}{rgb}{0.4,0.8,0}
+
+\definecolor{olivedrab3}{rgb}{0.78,0.93,0.11}
+\definecolor{goldenrod1}{rgb}{1,0.63,0}
+\definecolor{yellow}{rgb}{0.78,0.93,0.11}
+\setcounter{tocdepth}{2}
+\providecommand{\tabularnewline}{\\}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\newcommand*{\titleGM}{\begingroup % Create the command for including the title page in the document
+\hbox{ % Horizontal box
+\hspace*{0.2\textwidth} % Whitespace to the left of the title page
+\rule{1pt}{\textheight} % Vertical line
+\hspace*{0.05\textwidth} % Whitespace between the vertical line and title page text
+\parbox[b]{0.75\textwidth}{ % Paragraph box which restricts text to less than the width of the page
+
+{\noindent\Huge\bfseries Prescriptions  \\[0.5\baselineskip]  Management:
+ \\[0.5\baselineskip]  
+}\\[2\baselineskip] % Title
+{\large \textit{Pharmacy module}}\\[4\baselineskip] % Tagline or further description
+
+
+\vspace{0.2\textheight} % Whitespace between the title block and the publisher
+{\noindent  }{\Large \textsc{Olga Dzięgielewska\\[0.5\baselineskip] Marcin Klepaczka\\[0.5\baselineskip] Andrzej Rybczak\\[0.5\baselineskip] Jan Szajda}} % Author name % Publisher and logo
+\vspace{0.1\textheight} % Whitespace between the title block and the publisher
+\begin{flushright}
+\includegraphics[scale=0.5]{"logo"}
+{\noindent  }{\\[0.3\baselineskip] \textsc{Wrocław, 2014}} 
+\end{flushright}
+}}
+
+\endgroup}
+
+%
+%---------------------   end of the 'preamble'
+%
+\begin{document}
+%-----------------------------------------------------------
+
+%\maketitle
+\thispagestyle{empty}
+\titleGM
+%-----------------------------------------------------------
+
+%-----------------------------------------------------------
+\tableofcontents
+
+% odstepy pomiedzy liniami na 1.
+
+%-----------------------------------------------------------
+
+\onehalfspacing
+
+\lhead[]{\textit{Prescriptions management: Pharmacy module }}
+\chead{}
+\rhead{\includegraphics[scale=0.1]{"logo"}}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+\include{example}
+
+
+%-----------------------------------------------------------
+%\addcontentsline{toc}{chapter}{\numberline{}Bibliography}
+%\include{biblio}
+%-----------------------------------------------------------
+
+%-----------------------------------------------------------
+\end{document}
