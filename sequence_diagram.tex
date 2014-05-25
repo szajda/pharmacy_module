@@ -24,6 +24,8 @@ Necessity to use the PIN by the user and the pharmacist prevents the risk the si
 The second step, presented on the figure \ref{fig:s_q_step_2}, contains actions related with establishing secure communication ways between the system parties. There are marked the actions, which are optional and are not required for the system to work properly. Establishing secure communication between the cards allows the participant to be sure, that the patient ant pharmacist cards are not the fake cards and they are authenticated to each other.
 Similarly, suing the SIGMA protocol between the card (patient or pharmacist) and the application installed on the PC, allows to authorization the application by the card and the card by the application. However. this two sub-steps can be implement, if the very-high level of the security from this point of view is required. 
 
+The communication between the application on the PC and Central Database is performed in the way described in the Central Database Module Documentation.
+
 \begin{figure}	
 	\hspace*{-1.5in}
     \includegraphics[scale=0.45]{s_d_3.png}
@@ -33,12 +35,19 @@ Similarly, suing the SIGMA protocol between the card (patient or pharmacist) and
 
 The figure \ref{fig:s_q_step_3} presents the point in the protocol, when the prescriptions for the user are download from the Central Database and are shown on the screen. Then, the patient have the possibility to select one or more of them to realize them. The data of the user are saved inside the patient card, so the application have to get this data to download appropriate prescriptions. 
 
+
 \begin{figure}	
 	\hspace*{-1.5in}
     \includegraphics[scale=0.45]{s_d_4.png}
     \caption{Sequence diagram - step 4}
     \label{fig:s_q_step_4}
 \end{figure} 
+
+The last step is presented on the figure \ref{fig:s_q_step_4}. This scheme is repeated for the each prescription. At the beginning, the system shows available substitutions for the medicine. Then, the pharmacist can select original medicine or one of the substitutions and the patient can confirm this choose. 
+
+Then, the application ask the patient and pharmacist cards to sign selected data. After it receive response, it sends this signed data to the Central Database. There, this data are saved. Thanks to that, it is really hard to simulate the buying the medicine by the patient, without his personal card - in such situation, data related with the prescription are not signed - and as the result, they are not take into account during the refund process. 
+
+At the end of the protocol, all ephemeral keys are destroyed. 
 
 
 
