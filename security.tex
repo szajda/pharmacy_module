@@ -1,0 +1,80 @@
+\chapter{\noun{Protection and Security}}
+
+This chapter describes entities used in the system, how we choose to protect them and why.
+
+\newpage
+
+\section{Protection methods}
+
+\subsection{Card}
+
+\begin{longtable}{|m{3cm}|m{12cm}|}
+\hline
+{\bf Entity} & {\bf Description} \\ \hline
+Patient's card & Patient's card stores private key along with the certificate. Elements of the certificate are as follows ({\it text in parentheses describes what is used}):
+\begin{itemize}
+ \item {\bf Serial Number}: Used to uniquely identify the certificate.
+ \item {\bf Subject}: The person, or entity identified ({\it personal data of the patient}).
+ \item {\bf Signature Algorithm}: The algorithm used to create the signature ({\it RSA}).
+ \item {\bf Signature}: The actual signature to verify that it came from the issuer.
+ \item {\bf Issuer}: The entity that verified the information and issued the certificate ({\it CA for the patient}).
+ \item {\bf Valid-From}: The date the certificate is first valid from.
+ \item {\bf Valid-To}: The expiration date.
+ \item {\bf Public Key}: The public key.
+ \item {\bf Thumbprint Algorithm}: The algorithm used to hash the public key certificate ({\it SHA256}).
+ \item {\bf Thumbprint (also known as fingerprint)}: The hash itself, used as an abbreviated form of the public key certificate.
+\end{itemize} \\ \hline
+Pharmacist's card & Pharmacist's card stores the same information as patient's card, with exception to several certificate fields being different:
+\begin{itemize}
+ \item {\bf Subject:} {\it Personal data + entity (pharmacy)}
+ \item {\bf Issuer:} {\it CA for the pharmacies}
+\end{itemize} \\ \hline
+Card's data access & Card is read only is the sense that patients/pharmacists are not able to modify the data that is stored on it. They do, however (after successful authentication), have access to certificate stored on the card as well as the function to sign arbitrary input data with its private key. \\ \hline
+PIN & The certificate access/signing input data can be performed after inputting a PIN. The user is given 4-digit PIN number and the verification system will allow three attempts of typing the correct number before the card is blocked. \\ \hline
+\end{longtable}
+
+\subsection{Authentication}
+
+\begin{longtable}{|m{3cm}|m{12cm}|}
+\hline
+{\bf Entity} & {\bf Description} \\ \hline
+Patient & Two factor authentication is used:
+\begin{itemize}
+ \item Something you have - smart card (containing user's certificate)
+ \item Something you know - PIN number used to access the certificate on the card
+\end{itemize} \\ \hline
+Pharmacist &Two factor authentication is used:
+\begin{itemize}
+ \item Something you have - smart card (containing pharmacist's certificate)
+ \item Something you know - PIN number used to access the certificate on the card
+\end{itemize} \\ \hline
+\end{longtable}
+
+\newpage
+
+\subsection{Connection}
+We assume that if the connection was lost, the whole authentication process needs to be repeated.
+
+\begin{longtable}{|m{3cm}|m{12cm}|}
+\hline
+{\bf Connection} & {\bf Description} \\ \hline
+card -- PC & After successful authentication we establish a session key and the communication is encrypted with it (for that AKE protocol ,,SIGMA'' is utilized). \\ \hline
+application -- DB & Two-way SSL connection is used. \\ \hline
+\end{longtable}
+
+\section{Justification}
+
+\subsection{PIN protection}
+The PIN number is used to authenticate the card holder. In case the card was lost and found by someone else, he won't be able to use the card without knowing the PIN. We propose 4-digit PIN number with three subsequent incorrect attempts before the card is blocked as it's already used e.g. in ATM cards and proven to work there.
+
+\subsection{SIGMA protocol}
+This AKE protocol (we choose to use SIGMA, but that is by no means the ultimate choice. It's been chosen due to convenience of having the implementation already in place. If one wishes, it can be replaced by other AKE protocol, e.g. NAXOS) will be used to secure the communication channels between parties existing in the pharmacy, i.e. cards and application. AKE protocols provide not only secure communication but also authentication mechanism, preventing not only eavesdropping or man-in-the-middle attacks but also party substitution.
+
+\subsection{Secure key disposal}
+All short term keys, i.e. ephemeral keys used using AKE protocol or session keys which are the result of the protocol are erased from memory immediately after they are no longer needed.
+
+\subsection{Secure communication with the database}
+The communication channel between database and pharmacy is secured with an SSL connection. We assume the SSL provides all the necessary mechanisms to protect the channel from attacks. To strengthen the security of the channel all the requests from any valid party must contain the signature (RSA signature) over the nonce provided by database system. This solution ensure that no unauthorized party is able to get access to database.
+
+\subsection{Protection against defraudation}
+Each transaction has to be signed by all the participating parties. In this setting it is impossible for the doctor/pharmacist to fake the medicaments sale and deceive NFZ into giving them money for refunding the nonexistent costs, as signature of the patient is also required.
