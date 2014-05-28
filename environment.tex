@@ -1,11 +1,40 @@
-\chapter{\noun{Environment Description and Data Flows}   }
+\chapter{\noun{Data Flows}   }
+\section{\noun{Use Cases} }
+
+%\begin{figure}
+    %\centering
+    %\includegraphics[width=1\textwidth]{use-case.png}
+    %\caption{General use case}
+    %\label{fig:usecase}
+%\end{figure} 
+
+The way prescriptions are currently processed is vulnerable to many threats, and brings many inconveniences. The most important ones are listed below.
+
+\begin{enumerate}
+\item{\textbf{System:}}
+\begin{itemize}
+\item{\textbf{pharmacist's verification} - system is ableto check that pharmacist has permissions to sell the drugs;}
+\item{\textbf{buyer's verification} - system is able to check that the buye's card is valid and entered PIN number was correct;}
+\item{\textbf{prescriptions update} - system can change the state of prescriptions(to either \textquoteleft{}bought\textquoteright{} or \textquoteleft{}invalid\textquoteright{}) or attach additional info to them, like the fact that drug\textquoteright{}s substitute was sold instead of prescribed one;}
+\end{itemize}
+\item{\textbf{Pharmacist:}}
+\begin{itemize}
+\item {\textbf{reading available prescriptions} - a pharmacist is able to seebuyer\textquoteright{}s prescriptions}
+\item{\textbf{modifying the prescriptions} - a pharmacist is able to update the prescriptions (changing their state/attaching info that substitute was sold instead)}
+\item{\textbf{signing the prescriptions} - a pharmacist is able to sign prescription to confirm that he\textquoteright{}s the one who sold them}
+\end{itemize}
+\item{\textbf{Customer:}}
+\begin{itemize}
+\item {\textbf{reading available prescriptions} - a customer is able to see/select prescriptions that haven\textquoteright{}t yet been bought}
+\item{\textbf{confirming pharmacist\textquoteright{}s changes} - a customer is obliged to confirm possible changes made to the prescriptions by the pharmacist}
+\item{\textbf{signing the prescriptions} - a customer is able to sign prescription
+to confirm that he got the certain medicines}
+\end{itemize}
+\end{enumerate}
 
 
-All the pharmacies which will be using our system must have broadband internet access, two smart card readers and two terminals: one for a pharmacist and one for a customer. The terminals apart from displaying the data need to handle all the confirmation actions on both sides. \newline
-Pharmacists and pharmacies’ customers need to have valid smart cards which store their identification data (names, surnames, PESEL numbers and digital certificates). All the certificates must be given by a defined certification authority and renewed when necessary.
 
-
-\textbf{\noun{Scenario}}
+\section{\noun{Scenario}}
 
 \begin{enumerate}
   \item Customer inserts his card into the reader and enters PIN number.
@@ -19,7 +48,7 @@ Pharmacists and pharmacies’ customers need to have valid smart cards which sto
 	\item  If authentication is not possible (eg. card of the pharmacist is invalid), an appropriate error message appears on the screen and the process can't be continued.
   \end{enumerate}
   \item The pharmacist marks prescriptions selected by the customers as 'to be bought'.
-  \item System checks whether prescriptions have already been bought (in case someone tampers with the card).
+  \item System checks whether prescriptions have already been bought.
   \item System verifies validity of prescriptions (expiration date, credentials of the doctor etc.)
  \begin{enumerate}
 	\item If some prescriptions are invalid, an appropriate message appears on the screen and system marks the prescriptions as 'invalid'.
@@ -30,7 +59,7 @@ Pharmacists and pharmacies’ customers need to have valid smart cards which sto
   \item  Buyer takes the drugs and removes his card from the reader.
 \end{enumerate}
 
- If before step 10 either card is removed from the reader, process is aborted and initial state of the prescriptions does not change.
+ If the customer's or pharmacist's card is removed from the reader before the step 10, the process is aborted and the initial state of the prescriptions is not changed.
 
 \begin{figure}
     \centering

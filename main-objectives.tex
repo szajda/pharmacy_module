@@ -1,10 +1,55 @@
-\chapter{\noun{The Main Objectives}   }
-
-The main objectives of our new design of the pharmacy module is to limit the impact of the threats listed above and improve the user-friendliness. 
-
-	\textbf{ The patient} has to be sure that his sensitive data is stored in a secure way, and unauthorized person cannot get to know anything about his medicines and illnesses. \textbf{The pharmacist} has to be sure that he sells the right medicines only for the right patient. \textbf{The refund process} should be quicker and easier. \textbf{The} possibility of making \textbf{mistakes} on the prescription should be eliminated. \textbf{The} number of \textbf{defraudations} should be significantly limited.
+\chapter{\noun{Project}}
 
 
+\section{\noun{The Main Objectives}}
+
+The main objectives of our new design of the pharmacy module is to limit the impact of the threats listed above and improve the usability of the current system.
+\newline
+\textbf{ The patient} has to be sure that his sensitive data is stored in a secure way, and unauthorized person cannot get to know anything about his medicines and illnesses. 
+\newline
+\textbf{The pharmacist} has to be sure that he sells the right medicines only for the right patient. 
+\newline
+\textbf{The refund process} should be quicker and easier. 
+\newline
+\textbf{The} possibility of making \textbf{mistakes} on the prescription should be eliminated. 
+\newline
+\textbf{The} number of \textbf{defraudations} should be significantly limited.
+
+
+\section{\noun{Environment Requirements}}
+
+\subsection{\noun{Smart Cards}}
+
+The main reason we decided to use smart cards is that smart card solutions, which employs two factor authentication, i.e. "something you have and something you know", provide a high security level which is crucial for the health's systems sensitive data.
+
+All the system's users will be given personalized smart cards which will store their identification data: names, surnames, PESEL and digital certificates. Each card will be assigned PIN and PUK numbers. The first one will be used to initialize authentication process, the second one will be used for unblocking a card\footnote{Unblocking procedure can be performed in the two following situation: when a user inputs wrong PIN number three times in a row or when he blocks his card after loosing it.}. 
+
+To improve the security level of the system, the data  stored on smart cards should be enciphered. Users' private keys need to be stored in a secure memory which cannot be directly read out. 
+
+In case of loosing a smart card, a user should perform a standardized revocation procedure. First, he should block a card in the assigned institution and while doing this he should be able to select whether he want to block the card temporarily or permanently. In the first case, after finding the card it is possible to unblock it with card's PUK number. In the second case it is necessary to generate new user's card and even after finding the card it will not be possible to unblock it.
+
+
+\subsection{\noun{Certificates}}
+
+Each user has his digital certificate on his smart card. All the user's certificates must be given by a defined certification authority and regularly\footnote{The CA should define a standard validity period for the patient's, pharmacist's and doctor's certificates.} updated.
+
+In case of selecting permanent blocking option during the revocation procedure, a new certificate is generated for such user.
+
+The certificate's validity should be checked at each use of the user's smartcard. The validity check is performed in the database module.
+
+\subsection{\noun{Pharmacy}}
+
+All the pharmacies which will be using the system must have broadband internet access, two smart card readers and two terminals: one for a pharmacist and one for a customer. The terminals apart from displaying the data need to handle all the confirmation actions on both sides. \newline
+
+
+\section{\noun{Architecture}}
+
+The pharmacy module architecture consists of the following elements:
+\begin{enumerate}
+\item \textbf{smart cards} with personal certificate, used for the authentication and signing, and an application which allows to read certain data from the card;
+\item \textbf{pharmacist's PC} with a pharmacy module application which provides all of the functionalities which satisfy all the operation performed in a pharmacy; provides two user-friendly interfaces: one for a patient and one for a pharmacist; is connected with patient’s and pharmacist’s terminals and the central database; is able to execute SIGMA protocol, handle secure keys storage and establish SSL connection;
+\item{\textbf{central DB}} is a central element of the whole system; stores the data and handles all the necessary database I/O functions.
+\end{enumerate}
 
 
 
