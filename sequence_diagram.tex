@@ -1,7 +1,7 @@
 \chapter{\noun{Sequence Diagram}   }
 In his chapter we present sequence diagram of the actions performed in the range of Pharmacy Module. Each step is described in details. Not all the actions are obligatory, i.e. some procedures can be performed or omitted depending on the required security level and a budget. 
 
-The first step is communication initialization. Actions performed in this step by the system elements are presented in the figure \ref{fig:s_q_step_1}
+\section{Communication initialization}
 \begin{figure}	
 	\hspace*{-1.5in}
     \includegraphics[scale=0.45]{s_d_1.png}
@@ -9,11 +9,13 @@ The first step is communication initialization. Actions performed in this step b
     \label{fig:s_q_step_1}
 \end{figure} 
 
+The first step is communication initialization. Actions performed in this step by the system elements are presented in the figure \ref{fig:s_q_step_1}
+
 At the beginning, a patient puts his personal card to a terminal and he enters his PIN as usual, e.g. in the ATM. If the PIN is correct, the user can see appropriate message on the terminal screen. Also a pharmacist have to use his card and enters his PIN in the second terminal. Then, the system is ready to work. 
 
 PINs are preventing from unauthorized usage of cards, e.g. when a card was stolen or lost.
 
-
+\section{Establish a secure communication}
 \begin{figure}	
 	\hspace*{-1.5in}
     \includegraphics[scale=0.45]{s_d_2.png}
@@ -26,6 +28,7 @@ Similarly, suing the SIGMA protocol between a card (patient's or pharmacist's) a
 
 The communication between the application on the PC and the Central Database is performed in the way described in the Central Database Module Documentation.
 
+\section{Select prescription to buy}
 \begin{figure}	
 	\hspace*{-1.5in}
     \includegraphics[scale=0.45]{s_d_3.png}
@@ -35,7 +38,7 @@ The communication between the application on the PC and the Central Database is 
 
 The figure \ref{fig:s_q_step_3} presents a point in the protocol, in which user's prescriptions are downloaded from the Central Database and are shown on the screen. After that the patient selects one or more of them to realize them.  User's identification data are stored on his card. They are used to authenticate the patient and to download appropriate prescriptions. 
 
-
+\section{Realize prescription}
 \begin{figure}	
 	\hspace*{-1.5in}
     \includegraphics[scale=0.45]{s_d_4.png}
@@ -45,9 +48,10 @@ The figure \ref{fig:s_q_step_3} presents a point in the protocol, in which user'
 
 The last step is presented on the figure \ref{fig:s_q_step_4}. This scheme is repeated for the each prescription. At the beginning, the system shows available substitutions for the medicine. Then, the pharmacist can select original medicine or one of the substitutions and the patient can confirm this choose. 
 
-Then, the application ask the patient and pharmacist cards to sign selected data. After it receives a response, it sends this signed data to the Central Database. The data are saved there. Because of that, it is  impossible to simulate buying process, without patient's personal card. The prescription's data have to be signed by the patient to be inserted into a database as a  bought prescription. Without a valid insert, the refoundation will not be granted. 
+Then, the application ask the patient and pharmacist cards to sign selected data. After it receives a response, it sends this signed data to the Central Database. The data are saved there. Because of that, it is  impossible to simulate buying process, without patient's personal card. The prescription's data have to be signed by the patient to be inserted into a database as a  bought prescription. Without a valid insert, the refund will not be granted. 
 
-At the end of the protocol, all ephemeral keys are destroyed. 
+\section{End of the protocol}
+At the end of the protocol, the communications channels are closed and all ephemeral keys are destroyed.
 
 
 
