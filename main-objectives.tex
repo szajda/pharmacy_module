@@ -50,7 +50,7 @@ The pharmacy module architecture consists of the following elements:
 \item \textbf{pharmacist's PC} with a pharmacy module application which provides all of the functionalities which satisfy all the operation performed in a pharmacy; provides two user-friendly interfaces: one for a patient and one for a pharmacist; is connected with patient’s and pharmacist’s terminals and the central database; is able to execute SIGMA protocol, handle secure keys storage and establish SSL connection;
 \item{\textbf{central DB}} is a central element of the whole system; stores the data and handles all the necessary database I/O functions.
 \end{enumerate}
-
+\newpage
 \section{\noun{Protection and Security}}
 
 Below we describe entities used in the system, how we choose to protect them and why.
@@ -60,7 +60,7 @@ Below we describe entities used in the system, how we choose to protect them and
 \subsubsection{\noun{Patient's card}}
 
 Patient's card stores private key along with the certificate. Elements of the certificate are as follows ({\it text in parentheses describes what is used}):
-\begin{itemize}
+\begin{packed_enum}
  \item {\bf Serial Number}: Used to uniquely identify the certificate.
  \item {\bf Subject}: The person, or entity identified ({\it personal data of the patient}).
  \item {\bf Signature Algorithm}: The algorithm used to create the signature ({\it RSA}).
@@ -71,15 +71,15 @@ Patient's card stores private key along with the certificate. Elements of the ce
  \item {\bf Public Key}: The public key.
  \item {\bf Thumbprint Algorithm}: The algorithm used to hash the public key certificate ({\it SHA256}).
  \item {\bf Thumbprint (also known as fingerprint)}: The hash itself, used as an abbreviated form of the public key certificate.
-\end{itemize}
+\end{packed_enum}
 
 \subsubsection{\noun{Pharmacist's card}}
 
 Pharmacist's card stores the same information as patient's card, with exception to several certificate fields being different:
-\begin{itemize}
+\begin{packed_enum}
  \item {\bf Subject:} {\it Personal data of the pharmacist and pharmacy}
  \item {\bf Issuer:} {\it CA for the pharmacies}
-\end{itemize}
+\end{packed_enum}
 
 \subsubsection{\noun{Card's data access}}
 
@@ -92,18 +92,18 @@ The certificate access/signing input data can be performed after inputting a PIN
 \subsubsection{\noun{Patient authentication}}
 
 Two factor authentication is used:
-\begin{itemize}
+\begin{packed_enum}
  \item Something you have - smart card (containing user's certificate)
  \item Something you know - PIN number used to access the certificate on the card
-\end{itemize}
+\end{packed_enum}
 
 \subsubsection{\noun{Pharmacist authentication}}
 
 Two factor authentication is used:
-\begin{itemize}
+\begin{packed_enum}
  \item Something you have - smart card (containing pharmacist's certificate)
  \item Something you know - PIN number used to access the certificate on the card
-\end{itemize}
+\end{packed_enum}
 
 \subsubsection{\noun{Connection between card and application}}
 After successful authentication we establish a session key and the communication is encrypted with it. For that AKE protocol ,,SIGMA'' is utilized. (Note that encryption is optional if we assume that no eavesdropping can take place or the data exchanged isn't considered confidential).

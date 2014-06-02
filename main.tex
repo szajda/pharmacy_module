@@ -1,4 +1,11 @@
 \documentclass[a4paper,11pt,english]{report}
+\newenvironment{packed_enum}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
 \setlength{\parskip}{\baselineskip}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -16,6 +23,7 @@
 \pagestyle{fancy}
 \usepackage{afterpage}
 \usepackage{framed}
+
 
 %
 %--------------------   start of the 'preamble'
