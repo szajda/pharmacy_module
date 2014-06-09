@@ -51,18 +51,19 @@ computers in the pharmacy, which of the medicine was sold, for who, who gave the
 
 Each month in every pharmacy a report, consisting of the set of the information about each prescription sold in the pharmacy is generated. This report is sent to the NFZ central database. Based on this, the NFZ refunds costs of the medicines. Each prescription has to be kept for at least five years in the pharmacy, and be ready for checking during controls made by NFZ representatives.
 \clearpage
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\textwidth]{database/current_uml.png}
-	\caption{The main points of currently used system}
-	\label{fig:F1}
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.9\textwidth]{database/current_uml.png}
+%	\caption{The main points of currently used system}
+%	\label{fig:F1}
+%\end{figure}
+
 
 \subsection{Threats and Inconveniences}
 The way prescriptions are currently processed is vulnerable to many threats, and brings many inconveniences. The most important ones are listed below.
 
-\begin{table}[h]
-    \begin{tabular}{| p{3cm} | p{9cm} |}
+\begin{longtable}{|p{3cm}|p{9cm}|}
+    
     \hline
     \centering Party & Threats and Inconveniences \\ \hline
     \vspace*{\fill} \begin{quote} \centering Patient \end{quote} \vspace*{\fill} & \begin{itemize}
@@ -79,8 +80,7 @@ The way prescriptions are currently processed is vulnerable to many threats, and
     
     \end{itemize}
     \\ \hline
-    \end{tabular}
-      \begin{tabular}{| p{3cm} | p{9cm} |}
+  
     \hline
     \vspace*{\fill} \begin{quote} \centering Doctor  \end{quote} \vspace*{\fill} & \begin{itemize}
     \item Doctor can create prescriptions without knowledge of patient and use them in fraud proccess.
@@ -90,8 +90,7 @@ The way prescriptions are currently processed is vulnerable to many threats, and
 
     \end{itemize}
     \\ \hline
-    \end{tabular}
-     \begin{tabular}{| p{3cm} | p{9cm} |}
+
      \hline
      \vspace*{\fill} \begin{quote} \centering Pharmacy \end{quote} \vspace*{\fill} & \begin{itemize}
      \item the pharmacy has to wait long time to refund
@@ -102,8 +101,8 @@ The way prescriptions are currently processed is vulnerable to many threats, and
      him to fix the mistakes
      \end{itemize}
      \\ \hline
-     \end{tabular}
-  \begin{tabular}{| p{3cm} | p{9cm} |}
+
+
   \hline
   \vspace*{\fill} \begin{quote} \centering NFZ \end{quote} \vspace*{\fill} & \begin{itemize}
   \item significant amount of money is being defrauded
@@ -115,8 +114,8 @@ The way prescriptions are currently processed is vulnerable to many threats, and
   part of the defraudation scheme)
   \end{itemize}
   \\ \hline
-  \end{tabular}
-  \begin{tabular}{| p{3cm} | p{9cm} |}
+
+
     \hline
     \vspace*{\fill} \begin{quote} \centering System  \end{quote} \vspace*{\fill} & \begin{itemize}
     \item the patient can try to copy the prescription and
@@ -128,8 +127,8 @@ The way prescriptions are currently processed is vulnerable to many threats, and
     of once
     \end{itemize}
     \\ \hline
-    \end{tabular}
-\end{table}
+
+\end{longtable}
 
 \subsection{Systems goal}
 
@@ -181,121 +180,117 @@ Three use cases are applicable for patient, pharmacist and doctors and they cons
 \end{itemize}
 Rest of use cases which are applicable to only one actor is described in their respective subsections.
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+\begin{longtable}{|p{6cm}|p{7.75cm}|}
+   
     \hline
     Actors: Patient, Doctor, Pharmacist &Title: Browse Doctors \\ \hline
     Goal: & Allows to find doctor with specific name, address or license number. \\ \hline
     Scenario: & User enters any or all of name, address and license number of searched doctor. \\ \hline
     Result: & List of doctors corresponding to the query. \\ \hline
     Database  method: & browse\_doctors \\ \hline
-    \end{tabular}
-\end{table}
+    
+\end{longtable}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+\begin{longtable}{|p{6cm}|p{7.75cm}|}
+    
     \hline
     Actors: Patient, Doctor, Pharmacist &Title: Browse Pharmacies \\ \hline
     Goal: & Allows to find pharmacist and pharmacy with specific name, address or license number. \\ \hline
     Scenario: & User enters any or all of name, address, license number of searched pharmacist or pharmacy name. \\ \hline
     Result: & List of pharmacists corresponding to the query. \\ \hline
     Database  method: & browse\_pharmacies \\ \hline
-    \end{tabular}
-\end{table}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+\end{longtable}
+
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actors: Patient, Doctor, Pharmacist &Title: Browse Medicines \\ \hline
     Goal: & Allows to find medicine with specific name or type. \\ \hline
     Scenario: & User enters name or/and type of medicine he is searching. \\ \hline
     Result: & List of medicines corresponding to the query. \\ \hline
     Database  method: & browse\_medicines \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 \subsection{Patient use cases}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actors: Patient &Title: Transfer prescription \\ \hline
     Goal: & Allows to transfer a prescription to another patient and give him credentials to realize this prescription. Patient who transferred the prescription losses his right to realize it by himself. If he wants the prescription back he has to cancel the transfer (next use case). \\ \hline
     Scenario: & Patient enters his id, id of new owner, the prescription id he wants to transfer and his signature. \\ \hline
     Result: & OK response from database and iId of new owner of prescription. \\ \hline
     Database  method: & transfer\_prescription \\ \hline
-    \end{tabular}
-\end{table}
+\end{longtable}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actors: Patient &Title: Cancel Transfer Prescription \\ \hline
     Goal: & Allows to revert transfering of prescription to another patient. \\ \hline
     Scenario: & Patient enters his id, prescription id he wants transfers to revert and his signature. \\ \hline
     Result: & OK response from database. \\ \hline
     Database  method: & cancel\_prescription\_transfer \\ \hline
-    \end{tabular}
-\end{table}
+\end{longtable}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actors: Patient &Title: Browse My Prescriptions History \\ \hline
     Goal: & Patient can see his history of realized and created prescriptions.\\ \hline
     Scenario: & Patient sends his id which is signed by his key from smartcard. Patient can define the time span of returned prescriptions as also a filter to only return prescriptions which aren't realized yet. \\ \hline
     Result: & List of prescriptions for the patient. \\ \hline
     Database  method: & browse\_prescription\_history \\ \hline
-    \end{tabular}
-\end{table}
+
+\end{longtable}
 
 \subsection{Doctors use cases}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
    Actors:  Doctor &Title: Create prescription \\ \hline
     Goal: & Allows to create a new prescription in database for selected patient..\\ \hline
     Scenario: & Doctor enters his and patients ids, as well as the data specific to the medicine - id, dosage, unit and quanitity. Everything is signed by his key. \\ \hline
     Result: & OK response from database. \\ \hline
     Database  method: & create\_prescription \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actors: Doctor &Title: Browse Patients Prescriptions History \\ \hline
     Goal: & Doctor can see patient history of realized and created prescriptions..\\ \hline
     Scenario: & Doctor sends his id - he will see all prescriptions created by him. If he will add the id of patient with patients signature, he will see the full history of prescriptions of current patient. Doctor can define the time span of returned prescriptions as also a filter to only return prescriptions which aren't realized yet. \\ \hline
     Result: & List of prescriptions for the patient. \\ \hline
     Database  method: & browse\_patient\_prescription\_history \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 \subsection{Pharmacist use cases}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actors: Pharmacist &Title: Prescription realization\\ \hline
     Goal: & Pharmacist realizes the prescription. DB checks if the request can be verified and if the prescription is valid.\\ \hline
     Scenario: & Pharmacist enters his id, prescription id as well as drugs id, dosage and qunatity of medicine. Everything is signed by pharmacist key. \\ \hline
     Result: & OK response from database if operation was successful. \\ \hline
     Database  method: & prescription\_realization \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actors: Pharmacist &Title: Browse Active Prescriptions \\ \hline
     Goal: & Pharmacist can see prescriptions which are not yet realized. \\ \hline
     Scenario: & Pharmacist sends his id and id of current patient which are signed by both of their keys. Pharmacist can see only prescriptions which are not yet realized. \\ \hline
     Result: & List of prescriptions for the patient. \\ \hline
     Database  method: & browse\_active\_prescriptions \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 \subsection{Special users use cases}
 
@@ -308,29 +303,29 @@ These are - administrator, which maintains the system, analytic tools which can 
 \end{center}
 \end{figure} 
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actor: Administrator &Title: Central Server maintenance \\ \hline
     Goal: & Administrator modifies the database, upgrades software etc. \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actor: Goverment Authority &Title: Retreive Data Of Particular User \\ \hline
     Goal: & Goverment Authority (GA) can retreive all sensitive data of every user after showing permission to do so e.g. court order. GA account password can be separated into several pieces to ensure that one attacker won't be in possesion of the key. \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
 
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
     Actor: Analytic tools &Title: Obtaining statistics from DB \\ \hline
     Goal: & Analyst can query the database for statistical data e.g. number of medicines sold in last month. Analyst can't query patients or link prescriptions data to particular person. \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 \section{Central Server Architecture}
 
@@ -408,8 +403,8 @@ After veryfing credentials sent by user to Central Server via SSL secure channel
 
 \subsubsection{Shared functions}
 %Browse medicines
-\begin{table} [h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & browse\_medicines \\ \hline
     Arguments: &  \begin{itemize}
@@ -425,12 +420,11 @@ After veryfing credentials sent by user to Central Server via SSL secure channel
     	\item maximum dosage
     	\item unit
 	\end{itemize}     \\ \hline	
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 Note: Multiple records may be returned at single request.
 %Browse doctors
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & browse\_doctors \\ \hline
     Arguments: &  \begin{itemize}
@@ -448,13 +442,13 @@ Note: Multiple records may be returned at single request.
 		\item certificate
 		\item public\_key
 	\end{itemize}     \\ \hline	
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 Note: Multiple records may be returned at single request.
 
 %Browse Pharmacies
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & browse\_pharmacists \\ \hline
     Arguments: &  \begin{itemize}
@@ -474,14 +468,14 @@ Note: Multiple records may be returned at single request.
 		\item public\_key
 		\item pharmacy\_name
 	\end{itemize}     \\ \hline	
-    \end{tabular}
-\end{table}Note: Multiple records may be returned at single request.
+    \end{longtable}
+Note: Multiple records may be returned at single request.
 
 \subsubsection{Patient functions}
 
 %GetPatientNonce
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & get\_patient\_nonce \\ \hline
     Arguments: &  \begin{itemize}
@@ -492,12 +486,12 @@ Note: Multiple records may be returned at single request.
     	\item nonce
 	\end{itemize}     \\ \hline	
 			Comment: & New nonce is generated only if the last request was successfully verified.\\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 %Browse My Prescriptions History
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & browse\_my\_prescriptions\_history \\ \hline
     Arguments: &  \begin{itemize}
@@ -526,12 +520,12 @@ Note: Multiple records may be returned at single request.
     	\item pharmacy\_name
     	\item pharmacy\_adress
 	\end{itemize}     \\ \hline	
-    \end{tabular}
-\end{table}Note: Multiple records may be returned at single request.
+    \end{longtable}
+Note: Multiple records may be returned at single request.
 
 %transfer_prescription
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & transfer\_prescription\\ \hline
     Arguments: &  \begin{itemize}
@@ -548,12 +542,12 @@ Note: Multiple records may be returned at single request.
 	\end{itemize}     \\ \hline	
 		Comment: & Prescription in database structure has two fields indicating prescription ownership - patientID (non-changeable, indicates the patient to which the medicine was prescribed) and owner\_PESEL (patient which will may realize the prescription).
 		Transfering the right will only apply if both of these fields point to same id - thus we exclude the scenario when patients can pass the prescription to yet another person. After this operation the transferring patient losses right to realize the prescription - prevention from cloning the prescription.\\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 %Cancel prescription transfer
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & cancel\_prescription\_transfer \\ \hline
     Arguments: &  \begin{itemize}
@@ -566,14 +560,13 @@ Note: Multiple records may be returned at single request.
     	\item "OK"
 	\end{itemize}     \\ \hline	
 		Comment: & Prescription in database structure has two fields indicating prescription ownership - patientID (non-changeable, indicates the patient to which the medicine was prescribed) and ownerID (patient which will may realize the prescription). Cancelling will only work if patientID and ownerID are different and the signature over request is verified. \\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
 
 \subsubsection{Doctor functions}
 
 %get_doctor_nonce
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & get\_doctor\_nonce \\ \hline
     Arguments: &  \begin{itemize}
@@ -584,12 +577,12 @@ Note: Multiple records may be returned at single request.
     	\item nonce
 	\end{itemize}     \\ \hline	
 			Comment: & New nonce is generated only if the last request was successfully verified.\\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 %create_prescription
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & create\_prescription \\ \hline
     Arguments: &  \begin{itemize}
@@ -606,12 +599,12 @@ Note: Multiple records may be returned at single request.
     	\item "OK"
 	\end{itemize}     \\ \hline	
 		Comment: & Database does not requires patient signature to create a prescription for him - Prescription realization will require his key (thus his smartcard) so the medicine can't be bought without his knowledge. Also the doctor can create prescription without the need of meeting the patient face to face - which is and advantage for chronically ill patients.\\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 %browse_patient_prescription_history
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & browse\_patient\_prescription\_history \\ \hline
     Arguments: &  \begin{itemize}
@@ -644,14 +637,14 @@ Note: Multiple records may be returned at single request.
     	\item pharmacy\_adress
 	\end{itemize}     \\ \hline
 	Comment: & If the patient signature is missing, database will only return prescriptions which were created by the doctor. If the patient signature is present and can be verified, doctor will receive the full history of patient. In case of any errors on verification, the request will be canceled. \\ \hline
-    \end{tabular}
-\end{table}Note: Multiple records may be returned at single request.
+    \end{longtable}
+Note: Multiple records may be returned at single request.
 
 \subsubsection{Pharmacist functions}
 
 %get_pharmacist_nonce
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & get\_pharmacist\_nonce \\ \hline
     Arguments: &  \begin{itemize}
@@ -662,11 +655,11 @@ Note: Multiple records may be returned at single request.
     	\item nonce
 	\end{itemize}     \\ \hline	
 			Comment: & New nonce is generated only if the last request was successfully verified.\\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 %prescription_realization
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & prescription\_realization \\ \hline
     Arguments: &  \begin{itemize}
@@ -684,12 +677,12 @@ Note: Multiple records may be returned at single request.
     	\item "OK"
 	\end{itemize}     \\ \hline	
 	Comment: & Request has to be signed by both patient's and pharmacist's keys. If the signature is incorrect, the database will return error message and the medicine shouldn't be given away.\\ \hline
-    \end{tabular}
-\end{table}
+    \end{longtable}
+
 
 %browse_active_prescriptions
-\begin{table}[h]
-    \begin{tabular}{| p{6cm} | p{7.75cm} |}
+
+    \begin{longtable}{| p{6cm} | p{7.75cm} |}
     \hline
      & browse\_active\_prescriptions \\ \hline
     Arguments: &  \begin{itemize}
@@ -715,8 +708,8 @@ Note: Multiple records may be returned at single request.
     	\item time of execution
 	\end{itemize}     \\ \hline	
 		Comment: & If the signatures of patient or pharmacist are incorrect, database will return an error. If there are no non-realized prescriptions, database will return empty list.\\ \hline
-    \end{tabular}
-\end{table}Note: Multiple records may be returned at single request.
+    \end{longtable}
+Note: Multiple records may be returned at single request.
 
 \subsection{Database schema}
 
