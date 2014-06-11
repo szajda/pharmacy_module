@@ -374,23 +374,34 @@ Keys used for connecting and authorising should have sufficient length to provid
 	\item $sslkey$ - private key of user.
 	\item $sslrootcert$ - Certificate of CA.
 	\end{itemize}
-	Example login: $psql$ $'host=95.85.28.156$ $port=5432$ $dbname=PrescriptionSystem$ $user=patient$ $sslmode=require$ $sslcert=patient.crt$ $sslkey=patient.key$ $sslrootcert=ca.crt'$
+	Example login: $psql$ $'host=95.85.28.156$ $port=5432$ $dbname=PrescriptionSystemMk2$ $user=patient$ $sslmode=require$ $sslcert=patient.crt$ $sslkey=patient.key$ $sslrootcert=ca.crt'$
 \item enter password
 \end{enumerate}
 
-\subsection{Nonces}
+\subsection{Nonces \& Verification Proccess}
 
 Randomly generated nonces are part of challenge-response protocol used in communication with database layer. Nonce are security measure against the replay attack. If a request require signature of any party, client has to ask database for generated nonce for given ID. After nonce is return, client has to:
 \begin{enumerate}
  \item Conacatenate function name,
  \item function arguments,
  \item nonce.
- \item Sign all the elements with users key.
+ \item Calculate SHA-1 sum over the concatenated elements.
+ \item Sign the with appropriate key\footnote{Signing method should be equal to invoking openssl command "openssl rsautl sign" with necessary parameters only}.
  \item Add the signature as the corresponding argument in function.
  \item Send the request.
 \end{enumerate}
 
-Central server will obtain nonce and key specific to given user, and validate the request. If validation succeeds, requested function will be execute, if not, server will return error message.
+When the server obtains the request:
+
+\begin{enumerate}
+\item Takes users key from the database
+\item Validates the signature
+\item If the signature is validated, constructs SHA-1 sum in the same way as user
+\item compares the verified, signed sum with one calculated in previous point
+\item Executes the query if the sums are equal
+\item Returns the result to the user
+\end{enumerate} 
+
 \clearpage
 \begin{figure}[h]
 \centering
@@ -499,7 +510,7 @@ Note: Multiple records may be returned at single request.
 		\item executed (boolean, optional, default = None)
 		\item start (date, optional, default = None)
 		\item end (date, optional, default = None)
-		\item patient\_signature (varbinary, mandatory)
+		\item patient\_signature (byte, mandatory)
 	\end{itemize}     \\ \hline
     Usage: & Patient requires history of his prescriptions. In order to get access to this kind of data, patient needs to sign his request using his secret key. Next, the signature will be veryfied by database. If signature will be acknowledged as genuine, database will return data about patient prescription history. Database provides patient the ability to filter his history by mean of time span and by the information about execution of prescriptions. \\ \hline
     Result: & \begin{itemize}
@@ -532,7 +543,7 @@ Note: Multiple records may be returned at single request.
     	\item patient\_id (integer, mandatory)
     	\item owner\_PESEL (integer, mandatory)
 		\item prescription\_id (integer, mandatory)
-		\item patient\_signature (varbinary, mandatory)
+		\item patient\_signature (byte, mandatory)
 	\end{itemize}     \\ \hline
     Usage: & Patient changes prescription owner to another patient, therefore allowing him to buy out specific prescription. It is important note, that after changing owner of prescription, original owner is NOT able to buy out his prescription until transfer is cancelled. \\ \hline
     Result: & \begin{itemize}
@@ -553,7 +564,7 @@ Note: Multiple records may be returned at single request.
     Arguments: &  \begin{itemize}
     	\item patient\_id (integer, mandatory)
 		\item prescription\_id (integer, mandatory)
-		\item patient\_signature (varbinary, mandatory)
+		\item patient\_signature (byte, mandatory)
 	\end{itemize}     \\ \hline
     Usage: & Patient changes actual owner of his prescription back to the original one (the patient himself) allowing him to buy out prescription and disallowing former owner of prescription to do so. \\ \hline
     Result: & \begin{itemize}
@@ -592,7 +603,7 @@ Note: Multiple records may be returned at single request.
 		\item dosage (integer, mandatory)
 		\item unit (integer, mandatory)
 		\item quantity (integer, mandatory)
-		\item doctor\_signature (varbinary, mandatory)
+		\item doctor\_signature (byte, mandatory)
 	\end{itemize}     \\ \hline
     Usage: & Doctor prescribe single medicine to the patient, describing medicine, quantity and dosage. \\ \hline
     Result: & \begin{itemize}
@@ -613,8 +624,8 @@ Note: Multiple records may be returned at single request.
 		\item start (date, optional, default = None)
 		\item end (date, optional, default = None)
 		\item bought(boolean, optional, default = None)
-		\item doctor\_signature (varbinary, mandatory)
-		\item patient\_signature (varbinary, optional)
+		\item doctor\_signature (byte, mandatory)
+		\item patient\_signature (byte, optional)
 
 	\end{itemize}     \\ \hline
     Usage: & Doctor downloads patient prescription history. Doctor (unlike pharmacist) do not needs patient signature to browse history od prescription that he has created. If he wants the full history, patients signature is needed. \\ \hline
@@ -668,8 +679,8 @@ Note: Multiple records may be returned at single request.
 		\item drug\_id (integer, mandatory)
 		\item unit (integer, mandatory)
 		\item quantity (integer, mandatory)
-		\item pharmacist\_signature (varbinary, mandatory)
-		\item patient\_signature (varbinary, mandatory)
+		\item pharmacist\_signature (byte, mandatory)
+		\item patient\_signature (byte, mandatory)
 
 	\end{itemize}     \\ \hline
     Usage: & Pharmacist will be able to realize patient prescription by pointing right prescription by giving its id, choose proper medicine (not necessairly the same as medicine prescribed by doctor, this check will be done by database), describe how many medicine is sold.\\ \hline
@@ -688,8 +699,8 @@ Note: Multiple records may be returned at single request.
     Arguments: &  \begin{itemize}
     	\item pharmacist\_id (integer, mandatory)
 		\item patient\_id (integer, mandatory)
-		\item pharmacist\_signature (varbinary, mandatory)
-		\item patient\_signature (varbinary, mandatory)
+		\item pharmacist\_signature (byte, mandatory)
+		\item patient\_signature (byte, mandatory)
 	\end{itemize}     \\ \hline
     Usage: & Pharmacy is able to see all active (not bought) prescriptions of current patient, which agrees to show this data to the pharmacy by signing request. \\ \hline
     Result: & \begin{itemize}
