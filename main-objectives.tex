@@ -1,21 +1,5 @@
 \chapter{\noun{Project}}
 
-
-\section{\noun{The Main Objectives}}
-
-The main objectives of our new design of the pharmacy module is to limit the impact of the threats listed above and improve the usability of the current system.
-\newline
-\textbf{ The patient} has to be sure that his sensitive data is stored in a secure way, and unauthorized person cannot get to know anything about his medicines and illnesses. 
-\newline
-\textbf{The pharmacist} has to be sure that he sells the right medicines only for the right patient. 
-\newline
-\textbf{The refund process} should be quicker and easier. 
-\newline
-\textbf{The} possibility of making \textbf{mistakes} on the prescription should be eliminated. 
-\newline
-\textbf{The} number of \textbf{defraudations} should be significantly limited.
-
-
 \section{\noun{Environment Requirements}}
 
 \subsection{\noun{Smart Cards}}
@@ -26,16 +10,29 @@ All the system's users will be given personalized smart cards which will store t
 
 To improve the security level of the system, the data  stored on smart cards should be enciphered. Users' private keys need to be stored in a secure memory which cannot be directly read out. 
 
+Keys used for connecting and authorising should have sufficient length to provide security. If the RSA key is used it should have length of at least 2048 bits. 
+
 In case of loosing a smart card, a user should perform a standardized revocation procedure. First, he should block a card in the assigned institution and while doing this he should be able to select whether he want to block the card temporarily or permanently. In the first case, after finding the card it is possible to unblock it with card's PUK number. In the second case it is necessary to generate new user's card and even after finding the card it will not be possible to unblock it.
+
+\subsection{\noun{Two-Way SSL}}
+
+Two-Way SSL provides the same functionalities as SSL, with the addition of authentication and non-repudiation of the client authentication, using digital signatures. When mutual authentication is used the server would request the client to provide a certificate in addition to the server certificate issued to the client.
+The main advantages of client-certificate authentication are:
+\begin{enumerate}
+\item The private information (the private key) is never sent to the server. The client doesn't let its secret out at all during the authentication.
+\item A server that doesn't know a user with that certificate can still authenticate that user, provided it trusts the CA (Certificate Authority) that issued the certificate (and that the certificate is valid). This is very similar to the way passports are used: you may have never met a person showing you a passport, but because you trust the issuing authority, you're able to link the identity to the person.
+\end{enumerate}
 
 
 \subsection{\noun{Certificates}}
 
-Each user has his digital certificate on his smart card. All the user's certificates must be given by a defined certification authority and regularly\footnote{The CA should define a standard validity period for the patient's, pharmacist's and doctor's certificates.} updated.
+In Two-Way SSL both parties (client and server) need the certificates. Each user has his digital certificate on his smart card. All the user's certificates must be given by a defined certification authority and regularly\footnote{The CA should define a standard validity period for the patient's, pharmacist's and doctor's certificates.} updated. The CA also generates a keypair for the database server. 
 
 In case of selecting permanent blocking option during the revocation procedure, a new certificate is generated for such user.
 
 The certificate's validity should be checked at each use of the user's smartcard. The validity check is performed in the database module.
+
+
 
 \subsection{\noun{Pharmacy}}
 
@@ -44,13 +41,23 @@ All the pharmacies which will be using the system must have broadband internet a
 
 \section{\noun{Architecture}}
 
+\subsection{\noun{Central Server Architecture}}
+
+Central server will be constructed of several components. In order to provide all necessary data and functionalities to the users this is system will be a cooperation of system's logic, specific APIs and database. In the project the following components were chosen:
+\begin{enumerate}
+\item \textbf{server layer} - Apache HTTP Server ("Apache") version 2.4.9
+\item \textbf{database layer} - PostgreSQL version 9.3
+\end{enumerate}
+
+\subsection{\noun{The Pharmacy Module}}
+
 The pharmacy module architecture consists of the following elements:
 \begin{enumerate}
 \item \textbf{smart cards} with personal certificate, used for the authentication and signing, and an application which allows to read certain data from the card;
 \item \textbf{pharmacist's PC} with a pharmacy module application which provides all of the functionalities which satisfy all the operation performed in a pharmacy; provides two user-friendly interfaces: one for a patient and one for a pharmacist; is connected with patient’s and pharmacist’s terminals and the central database; is able to execute SIGMA protocol, handle secure keys storage and establish SSL connection;
 \item{\textbf{central DB}} is a central element of the whole system; stores the data and handles all the necessary database I/O functions.
 \end{enumerate}
-\newpage
+
 \section{\noun{Protection and Security}}
 
 Below we describe entities used in the system, how we choose to protect them and why.

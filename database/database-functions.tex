@@ -1,0 +1,325 @@
+\chapter{\noun{Database Functions and Schema}}
+
+\section{\noun{Database Functions}}
+After veryfing credentials sent by user to Central Server via SSL secure channel, user, depending on its role, will be able to execute set of functions, which will serve single purpose each (e.g. creation of new prescription).
+
+\subsection{\noun{Shared Functions}}
+%Browse medicines
+\small
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & browse\_medicines \\ \hline
+    Arguments: &  \begin{packed_enum}
+    \item name (string, optional, default = None)
+    \item type (string, optional, default = None)
+	\end{packed_enum}        \\ \hline
+    Usage: & Pharmacist sends his id and id of current patient which are signed by both of their keys. Pharmacist can see only prescriptions which are not yet realized. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item medicine\_id
+    	\item name
+    	\item prescription requirement
+    	\item medicine type
+    	\item maximum dosage
+    	\item unit
+	\end{packed_enum}     \\ \hline	
+    \end{longtable}
+
+Note: Multiple records may be returned at single request.
+%Browse doctors
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & browse\_doctors \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item name ( string, optional, default = None)
+		\item address (string, optional, default = None)
+		\item license\_number (string, optional, default = None)
+
+	\end{packed_enum}     \\ \hline
+    Usage: & Entity using this function performs simple query which return all public data regarding registered doctors stored in DB. Arguments name, adress and license\_number narrows down result applying filters to the executed query. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item doctor\_id
+		\item name
+		\item address
+		\item license\_number
+		\item certificate
+		\item public\_key
+	\end{packed_enum}     \\ \hline	
+    \end{longtable}
+
+Note: Multiple records may be returned at single request.
+
+\newpage
+%Browse Pharmacies
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & browse\_pharmacists \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item pharmacist\_name ( string, optional, default = None)
+		\item address (string, optional, default = None)
+		\item license\_number (string, optional, default = None)
+		\item pharmacy\_name (string, optional, default = None)
+
+	\end{packed_enum}     \\ \hline
+    Usage: & Entity using this function performs simple query which return all public data regarding registered pharmacists stored in DB. Arguments name, adress and license\_number narrows down result applying filters to the executed query. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item pharmacist\_id
+		\item name
+		\item address
+		\item license\_number
+		\item certificate
+		\item public\_key
+		\item pharmacy\_name
+	\end{packed_enum}     \\ \hline	
+    \end{longtable}
+Note: Multiple records may be returned at single request.
+
+\subsection{\noun{Patient Functions}}
+
+%GetPatientNonce
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & get\_patient\_nonce \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item patient\_id (integer, mandatory)
+	\end{packed_enum}     \\ \hline
+    Usage: & Function returns 1024 bit nonce for given patient\_id. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item nonce
+	\end{packed_enum}     \\ \hline	
+			Comment: & New nonce is generated only if the last request was successfully verified.\\ \hline
+    \end{longtable}
+
+
+%Browse My Prescriptions History
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & browse\_my\_prescriptions\_history \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item patient\_id (integer, mandatory)
+		\item executed (boolean, optional, default = None)
+		\item start (date, optional, default = None)
+		\item end (date, optional, default = None)
+		\item patient\_signature (byte, mandatory)
+	\end{packed_enum}     \\ \hline
+    Usage: & Patient requires history of his prescriptions. In order to get access to this kind of data, patient needs to sign his request using his secret key. Next, the signature will be veryfied by database. If signature will be acknowledged as genuine, database will return data about patient prescription history. Database provides patient the ability to filter his history by mean of time span and by the information about execution of prescriptions. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item prescription\_id
+    	\item doctor\_id
+    	\item doctor name
+    	\item doctor address
+    	\item doctor license number
+    	\item prescription\_owner\_id
+    	\item drug id
+    	\item dosage
+    	\item max dosage
+    	\item unit
+    	\item quantity
+    	\item execution
+    	\item time of execution
+    	\item pharmacy\_id
+    	\item pharmacy\_name
+    	\item pharmacy\_adress
+	\end{packed_enum}     \\ \hline	
+    \end{longtable}
+Note: Multiple records may be returned at single request.
+
+\newpage
+%transfer_prescription
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & transfer\_prescription\\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item patient\_id (integer, mandatory)
+    	\item owner\_PESEL (integer, mandatory)
+		\item prescription\_id (integer, mandatory)
+		\item patient\_signature (byte, mandatory)
+	\end{packed_enum}     \\ \hline
+    Usage: & Patient changes prescription owner to another patient, therefore allowing him to buy out specific prescription. It is important note, that after changing owner of prescription, original owner is NOT able to buy out his prescription until transfer is cancelled. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item new\_owner\_id
+		\item "OK"
+
+	\end{packed_enum}     \\ \hline	
+		Comment: & Prescription in database structure has two fields indicating prescription ownership - patientID (non-changeable, indicates the patient to which the medicine was prescribed) and owner\_PESEL (patient which will may realize the prescription).
+		Transfering the right will only apply if both of these fields point to same id - thus we exclude the scenario when patients can pass the prescription to yet another person. After this operation the transferring patient losses right to realize the prescription - prevention from cloning the prescription.\\ \hline
+    \end{longtable}
+
+
+%Cancel prescription transfer
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & cancel\_prescription\_transfer \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item patient\_id (integer, mandatory)
+		\item prescription\_id (integer, mandatory)
+		\item patient\_signature (byte, mandatory)
+	\end{packed_enum}     \\ \hline
+    Usage: & Patient changes actual owner of his prescription back to the original one (the patient himself) allowing him to buy out prescription and disallowing former owner of prescription to do so. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item "OK"
+	\end{packed_enum}     \\ \hline	
+		Comment: & Prescription in database structure has two fields indicating prescription ownership - patientID (non-changeable, indicates the patient to which the medicine was prescribed) and ownerID (patient which will may realize the prescription). Cancelling will only work if patientID and ownerID are different and the signature over request is verified. \\ \hline
+    \end{longtable}
+
+\subsection{\noun{Doctor Functions}}
+
+%get_doctor_nonce
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & get\_doctor\_nonce \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item doctor\_id (integer, mandatory)
+	\end{packed_enum}     \\ \hline
+    Usage: & Function returns 1024 bit nonce for given doctor\_id. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item nonce
+	\end{packed_enum}     \\ \hline	
+			Comment: & New nonce is generated only if the last request was successfully verified.\\ \hline
+    \end{longtable}
+
+
+%create_prescription
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & create\_prescription \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item doctor\_id (integer, mandatory)
+		\item patient\_id (integer, mandatory)
+		\item drug\_id (integer, mandatory)
+		\item dosage (integer, mandatory)
+		\item unit (integer, mandatory)
+		\item quantity (integer, mandatory)
+		\item doctor\_signature (byte, mandatory)
+	\end{packed_enum}     \\ \hline
+    Usage: & Doctor prescribe single medicine to the patient, describing medicine, quantity and dosage. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item "OK"
+	\end{packed_enum}     \\ \hline	
+		Comment: & Database does not requires patient signature to create a prescription for him - Prescription realization will require his key (thus his smartcard) so the medicine can't be bought without his knowledge. Also the doctor can create prescription without the need of meeting the patient face to face - which is and advantage for chronically ill patients.\\ \hline
+    \end{longtable}
+
+
+%browse_patient_prescription_history
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & browse\_patient\_prescription\_history \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item doctor\_id (integer, mandatory)
+		\item patient\_id (integer, mandatory)
+		\item start (date, optional, default = None)
+		\item end (date, optional, default = None)
+		\item bought(boolean, optional, default = None)
+		\item doctor\_signature (byte, mandatory)
+		\item patient\_signature (byte, optional)
+
+	\end{packed_enum}     \\ \hline
+    Usage: & Doctor downloads patient prescription history. Doctor (unlike pharmacist) do not needs patient signature to browse history od prescription that he has created. If he wants the full history, patients signature is needed. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item prescription\_id
+    	\item doctor\_id
+    	\item doctor name
+    	\item doctor address
+    	\item doctor license number
+    	\item prescription\_owner\_id
+    	\item drug id
+    	\item dosage
+    	\item max dosage
+    	\item unit
+    	\item quantity
+    	\item execution
+    	\item time of execution
+    	\item pharmacy\_id
+    	\item pharmacy\_name
+    	\item pharmacy\_adress
+	\end{packed_enum}     \\ \hline
+	Comment: & If the patient signature is missing, database will only return prescriptions which were created by the doctor. If the patient signature is present and can be verified, doctor will receive the full history of patient. In case of any errors on verification, the request will be canceled. \\ \hline
+    \end{longtable}
+Note: Multiple records may be returned at single request.
+
+\subsection{\noun{Pharmacist functions}}
+
+%get_pharmacist_nonce
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & get\_pharmacist\_nonce \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item pharmacist\_id (integer, mandatory)
+	\end{packed_enum}     \\ \hline
+    Usage: & Function returns 1024 bit nonce for given pharmacist\_id. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item nonce
+	\end{packed_enum}     \\ \hline	
+			Comment: & New nonce is generated only if the last request was successfully verified.\\ \hline
+    \end{longtable}
+
+%prescription_realization
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & prescription\_realization \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item prescription\_id (integer, mandatory)
+		\item pharmacist\_id (integer, mandatory)
+		\item drug\_id (integer, mandatory)
+		\item unit (integer, mandatory)
+		\item quantity (integer, mandatory)
+		\item pharmacist\_signature (byte, mandatory)
+		\item patient\_signature (byte, mandatory)
+
+	\end{packed_enum}     \\ \hline
+    Usage: & Pharmacist will be able to realize patient prescription by pointing right prescription by giving its id, choose proper medicine (not necessairly the same as medicine prescribed by doctor, this check will be done by database), describe how many medicine is sold.\\ \hline
+    Result: & \begin{packed_enum}
+    	\item "OK"
+	\end{packed_enum}     \\ \hline	
+	Comment: & Request has to be signed by both patient's and pharmacist's keys. If the signature is incorrect, the database will return error message and the medicine shouldn't be given away.\\ \hline
+    \end{longtable}
+
+
+%browse_active_prescriptions
+
+    \begin{longtable}{| p{3cm} | p{10.75cm} |}
+    \hline
+     & browse\_active\_prescriptions \\ \hline
+    Arguments: &  \begin{packed_enum}
+    	\item pharmacist\_id (integer, mandatory)
+		\item patient\_id (integer, mandatory)
+		\item pharmacist\_signature (byte, mandatory)
+		\item patient\_signature (byte, mandatory)
+	\end{packed_enum}     \\ \hline
+    Usage: & Pharmacy is able to see all active (not bought) prescriptions of current patient, which agrees to show this data to the pharmacy by signing request. \\ \hline
+    Result: & \begin{packed_enum}
+    	\item prescription\_id
+    	\item doctor\_id
+    	\item doctor name
+    	\item doctor address
+    	\item doctor license number
+    	\item prescription\_owner\_id
+    	\item drug id
+    	\item dosage
+    	\item max dosage
+    	\item unit
+    	\item quantity
+    	\item execution
+    	\item time of execution
+	\end{packed_enum}     \\ \hline	
+		Comment: & If the signatures of patient or pharmacist are incorrect, database will return an error. If there are no non-realized prescriptions, database will return empty list.\\ \hline
+    \end{longtable}
+Note: Multiple records may be returned at single request.
+\normalsize
+\newpage
+\section{\noun{Database schema}}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1\textwidth , angle=90]{database/databaseSchema.png}
+\end{center}
+\end{figure} 

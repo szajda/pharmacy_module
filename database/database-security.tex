@@ -1,0 +1,42 @@
+\chapter{\noun{Central Server Security Standards}}
+\section{\noun{Physical Security}}
+\begin{packed_enum}
+	\item Servers is protected by backup and offsite data storage. The offsite storage of backup media is in a secure backup-vendor secure facility.
+	\item A facility with Uninterruptible Power Supply (UPS) supporting all servers and essential peripheral equipment (console servers, etc).
+	\item A facility with a climate controlled environment separate from the building HVAC, (dedicated air conditioning with in-room temperature controls).
+	\item A facility with cooling and electrical capacity that is planned and monitored for outages.
+	\item Secured access to the facility with documentation listing all individuals who currently have access and monitoring/auditing of ingress/egress via staff/video/etc.
+	\item Servers in the facility must require authentication for local access (i.e. consoles are not left logged in while unattended).
+	\item For facilities that use access codes, the capability to quickly change the access codes if personnel changes warrant is required.  Access codes must be changed at least annually.
+	\item A facility with automated fire detection and suppression systems.
+\end{packed_enum}
+
+
+
+\section{\noun{Data Encryption}}
+
+\begin{packed_enum}
+	\item Hard disks, on which are stored databases, will be encrypted by external program TrueCrypt. TrueCrypt encrypts whole data on hard disk in real time. 
+	\item Databases will be encrypted by TDE (Transparent Data Encryption). TDE encrypts:
+        \begin{packed_enum}
+			\item Database files
+			\item Database Snapshots
+			\item Transaction Log File
+            \item Backups
+		\end{packed_enum}
+	using DEK ( Database Encryption Key ) which is protected by certificate.
+\end{packed_enum}
+
+\section{\noun{Backup Procedure}}
+\begin{packed_enum}
+	\item To ensure no data loss, database is replicated in real-time to a server in another location - this location meets conditions mentioned in section 5.1.
+	\item Additionally, regular backups are made every day.
+	\item Backups are kept for reasonable amount of time:
+        \begin{packed_enum}
+			\item Daily backups - 1 week
+			\item Weekly backups - 1 month
+			\item Monthly backups - 1 year
+			\item Annual backups - forever
+		\end{packed_enum}
+	\item All backups are encrypted with measures described in section 5.2.
+\end{packed_enum}
