@@ -68,12 +68,12 @@
 {\noindent\Huge\bfseries Prescriptions  \\[0.5\baselineskip]  Management
  \\[0.5\baselineskip]  
 }\\[2\baselineskip] % Title
-{\large \textit{Pharmacy module}}\\[4\baselineskip] % Tagline or further description
 
 
-\vspace{0.2\textheight} % Whitespace between the title block and the publisher
-{\noindent  }{\Large \textsc{Olga Dzięgielewska\\[0.5\baselineskip] Marcin Klepaczka\\[0.5\baselineskip] Andrzej Rybczak\\[0.5\baselineskip] Jan Szajda}} % Author name % Publisher and logo
-\vspace{0.1\textheight} % Whitespace between the title block and the publisher
+\vspace{0.5\textheight}
+%\vspace{0.2\textheight} % Whitespace between the title block and the publisher
+%{\noindent  }{\Large \textsc{Olga Dzięgielewska\\[0.5\baselineskip] Marcin Klepaczka\\[0.5\baselineskip] %Andrzej Rybczak\\[0.5\baselineskip] Jan Szajda}} % Author name % Publisher and logo
+%\vspace{0.1\textheight} % Whitespace between the title block and the publisher
 \begin{flushright}
 \includegraphics[scale=0.5]{"plaq"}
 {\noindent  }{\\[0.3\baselineskip] \textsc{Wrocław, 2014}} 
@@ -82,17 +82,46 @@
 
 \endgroup}
 
+
 %
 %---------------------   end of the 'preamble'
 %
 \begin{document}
 %-----------------------------------------------------------
+\chead{}
+\rhead{\includegraphics[scale=0.1]{"plaq"}}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
 
 %\maketitle
 \thispagestyle{empty}
 \titleGM
-%-----------------------------------------------------------
 
+\chapter*{Authors}
+\begin{itemize}
+
+\item[] Zbginiew \textsc{Dobosiewicz}
+\item[] Olga \textsc{Dzięgielewska} 
+\item[] Michał \textsc{Kaczmarek} 
+\item[] Paweł \textsc{Kędzia} 
+\item[] Marcin \textsc{Klepaczka} 
+\item[] Krystian \textsc{Krakowiak}
+\item[] Piotr \textsc{Lipiak} 
+\item[] Maciej \textsc{Niemczyk} 
+\item[] Paweł \textsc{Nużka} 
+\item[] Bartłomiej \textsc{Paciorek}
+\item[] Bartosz \textsc{Piwowarski}
+\item[] Jakub \textsc{Płaskonka} 
+\item[] Mateusz \textsc{Płatek} 
+\item[] Andrzej \textsc{Rybczak} 
+\item[] Jan  \textsc{Szajda}
+\end{itemize}
+
+  
+%-----------------------------------------------------------
+\lhead[]{\textit{Prescriptions management: Contents }}
 %-----------------------------------------------------------
 \tableofcontents
 
@@ -102,37 +131,41 @@
 
 \onehalfspacing
 
-\lhead[]{\textit{Prescriptions management: Pharmacy module }}
-\chead{}
-\rhead{\includegraphics[scale=0.1]{"plaq"}}
-\lfoot{}
-\cfoot{\thepage}
-\rfoot{}
+
 
 %\include{example}
 %-------------INTRO
+
+\lhead[]{\textit{Prescriptions management: Introduction }}
 \part{\noun{Introduction}}
+John \textsc{Smith}
+
 \include{current-situation}
 \include{threats-and-inconveniences}
 \include{system-goals}
 
+\lhead[]{\textit{Prescriptions management: Project }}
 \part{\noun{Project}}
 \include{main-objectives}
 
 %---------------DATABASE
+\lhead[]{\textit{Prescriptions management: Database }}
 \part{\noun{Database}}
 \include{database/database-use}
 \include{database/database-communication}
 \include{database/database-functions}
 \include{database/database-security}
+
 %----------------PHARMACY
+\lhead[]{\textit{Prescriptions management: Pharmacy }}
 \part{\noun{Pharmacy Module}}
 
 \include{environment}
 \include{sequence_diagram}
+\lhead[]{\textit{Prescriptions management: Patient }}
 %---------------PATIENT
 \part{\noun{Patient}}
-
+\lhead[]{\textit{Prescriptions management: Doctor }}
 %---------------DOCTOR
 \part{\noun{Doctor}}
 
