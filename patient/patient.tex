@@ -1,74 +1,7 @@
-\documentclass[12pt,titlepage]{article}
-\usepackage{tabularx}
-\usepackage{graphicx}
-\usepackage{courier}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage{hyphenat}
-\selectlanguage{english}
-\usepackage{pslatex}
-\usepackage{ulem}
-\usepackage{url}
-\usepackage{here}
-\usepackage{ltablex}
-\usepackage{placeins}
-\keepXColumns
-\makeindex
-\usepackage[pdftitle={PRESCRIPTIONS MANAGEMENT SYSTEM},%
-           pdfstartview={FitH}, pdftex, colorlinks=false,%
-           pdfpagelabels=false, bookmarks={true}]{hyperref}
-\begin{document}
-\pagestyle{empty}
-\begin{titlepage}
-\vspace*{\fill}
-\begin{center}
-\begin{picture}(300,510)
- \put( 10,520){\makebox(0,0)[l]{\large \textsc{Faculty of Fundamental Problems of Technology}}}
- \put( 10,500){\makebox(0,0)[l]{\large \textsc{Wrocław University of Technology}}}
- \put( 0,290){\makebox(0,0)[l]{\Huge  \textsc{Prescription management system}}}
- \put( 70,260){\makebox(0,0)[l]{\Huge  \textsc{The patient module}}} 
- \put(70,190){\makebox(0,0)[l]{\large \textsc{Z. Dobosiewicz \& M. Niemczyk}}}
- \put(40,170){\makebox(0,0)[l]{\large \textsc{P. Nużka \& B. Paciorek \& B. Piwowarski }}} 
- \put(100,-80){\makebox(0,0)[bl]{\large \bf \textsc{Wrocław 2014}}}
-\end{picture}
-\end{center}
-\vspace*{\fill}
-\end{titlepage}
-\tableofcontents
-\newpage
-\pagestyle{headings}
-\section{\textsc{Current situation}}
-The main element of the currently used system is a paper prescription. 
-It contains all information required to buy specific medicines, e.g.:
-\begin{itemize}
-\item prescription's creation date
-\item patient's personal data:
-\begin{itemize}
-\item name and surname 
-\item address
-\item PESEL
-\end{itemize}
-\item number of the prescription, specific for each doctor
-\item list of medicines with level of refund, 
-signature and stamp of the doctor
-\end{itemize}
-The patient, who was given the prescription by the doctor, goes to the pharmacy to buy the medicines. 
-He gives his prescription to a pharmacist and says which of the medicines from the list he wants to buy.
-The pharmacist checks if the medicines are available and if yes, he sells them. 
-Next, he takes the prescription and makes a signature next to the each of the medicine he sold. 
-He also inputs to the software installed on computers in the pharmacy, which of the medicine was sold, for who, who gave the prescription and what are the costs of the refund.
-\\
-
-A report, including detailed information about each prescription sold in the pharmacy, is generated each month. 
-This report is sent to the NFZ central database. 
-NFZ refunds the costs of the medicines based on this report. 
-Each prescription has to be kept in the pharmacy for at least five years, and should be ready for controls made by NFZ representatives.
-
 \newpage
 
-\section{\textsc{Patient's module}}
-\subsection{\textsc{Module description}}
+\chapter {\noun{Patient's module}}
+\section{\textsc{Module description}}
 The prescription system from the patient point of view is based on smart cards. 
 Each patient has a unique card with ID and a pair of cryptographic keys used to create a signature. 
 The system could be easily combined with electronic IDs, when they become available in Poland.
@@ -90,7 +23,7 @@ Also, doctors would not be able to abuse this functionality, because it would re
 Patient is able to browse the list of medicines, doctors and pharmacies. 
 Thanks to this, he could easily check the leaflet of the medicine, find the phone number to the doctor or check the opening hours of the pharmacy.
 
-\subsection{\textsc{Goals of the patient module}}
+\section{\textsc{Goals of the patient module}}
 \begin{itemize}
 \item Protection from the refund fraud problem
 \item Possibility to get prescriptions without leaving home
@@ -100,8 +33,7 @@ Thanks to this, he could easily check the leaflet of the medicine, find the phon
 \end{itemize}
 
 \newpage
-
-\section{\textsc{Threats and inconveniences}}
+\chapter {\noun{Threats and inconveniences}}
 The way prescriptions are currently processed is vulnerable to many threats, and brings many inconveniences. 
 The most important ones are listed below.
 
@@ -127,8 +59,8 @@ system & \begin{itemize}
 \hline
 \end{tabularx}
 
-\subsection{\textsc{Protection methods}}
-\subsubsection{\textsc{Smart Card}}
+\section{\textsc{Protection methods}}
+\subsection{\textsc{Smart Card}}
 The main reason we decided to use smart cards is that smart card solutions, which employ two factor authentication, i.e. "something you have and something you know", provide a high security level which is crucial for the prescription system sensitive data.
 \\
 
@@ -143,7 +75,7 @@ Users' private keys need to be stored in a secure memory which cannot be directl
 In case of loosing a smart card, the user should perform a standardized revocation procedure, i.e. he should block a card in the assigned institution. 
 The user should enroll for a new card afterwards
 
-\subsubsection{\textsc{Certificates}}
+\subsection{\textsc{Certificates}}
 Each user has his digital certificate on his smart card. 
 All of the user's certificates must be given by a defined certification authority and regularly updated.
 \\
@@ -152,8 +84,8 @@ The certificate's validity should be checked at each use of the user's smart car
 The validity check is performed in the database module.
 
 \newpage
+\chapter {\noun{System architecture}}
 
-\section{\textsc{System architecture}}
 The patient's module architecture consists of the following elements:
 \begin{itemize}
 \item smart card with personal certificate and secure key storage, used for the authentication and signing
@@ -167,19 +99,19 @@ The patient's module architecture consists of the following elements:
 \end{itemize}
 
 \newpage
+\chapter {\noun{Use Cases}}
 
-\section{\textsc{Use Cases}}
 Patients have access to the system by dedicated patient's application. 
 Each patient is given unique, personal smart card that is being used for authentication.
 \\
 \\
 \begin{figure}
-\includegraphics[width=\linewidth]{useCaseDiagram}
+\includegraphics[width=\linewidth]{patient/useCaseDiagram.jpg}
 \caption{Use cases}
 \end{figure}
 \\
 \\
-\subsection{\textsc{Use cases for patient's application}}
+\section{\textsc{Use cases for patient's application}}
 The patient's application is a graphical interface to the patient's module. 
 It includes six use cases that are available for the patient:
 \begin{description}
@@ -199,7 +131,7 @@ If the patient cannot realize prescription, he is able to transfer his prescript
 \item[cancel prescription transfer] \hfill \\
 The patient can cancel transfer of prescription and realize it by himself or transfer it again.
 \end{description}
-\subsection{\textsc{Smart card use cases}}
+\section{\textsc{Smart card use cases}}
 The smart card, introduced into the system for security reasons, includes two use cases.
 \begin{description}
 \item[sign message] \hfill \\
@@ -208,7 +140,7 @@ The signature would be used in calls to database procedures.
 \item[verify PIN] \hfill \\
 The smart card verifies PIN, that the patient has entered, in order to access any functionalities of the system.
 \end{description}
-\subsection{\textsc{Flow chart for transfer prescription use case}}
+\section{\textsc{Flow chart for transfer prescription use case}}
 To transfer the prescription user has to enter correct PIN. 
 Application establish connection with database and retrieve the list of prescription available to transfer. 
 The list contains only prescriptions which can be transferred by the patient. 
@@ -217,15 +149,14 @@ After the patient's confirm transfer, application create and send request to the
 If the signature under the request concatenated with nonce is valid and request contains required data database transfers the prescription to the new owner.
 
 \begin{figure}
-\includegraphics[width=\linewidth]{transferPrescriptionFlowChart}
+\includegraphics[width=\linewidth]{patient/transferPrescriptionFlowChart}
 \caption{Transfer prescription flow chart}
 \end{figure}
 
 
 \newpage
 
-
-\section{\textsc{Functionalities of application}}
+\chapter {\noun{Functionalities of application}}
 
 The application implements following functions:
 \begin{itemize}
@@ -238,7 +169,7 @@ The application implements following functions:
 \end{itemize}
 They are discussed in greater detail below.
 
-\subsection{\textsc{Browse medicines}}
+\section{\textsc{Browse medicines}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -263,7 +194,7 @@ display &
 \hline
 \end{tabularx}
 
-\subsection{\textsc{Browse pharmacies}}
+\section{\textsc{Browse pharmacies}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -289,7 +220,7 @@ display &
 \hline
 \end{tabularx}
 
-\subsection{\textsc{Browse doctors}}
+\section{\textsc{Browse doctors}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -315,7 +246,7 @@ display &
 \hline
 \end{tabularx}
 
-\subsection{\textsc{Browse prescription history}}
+\section{\textsc{Browse prescription history}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -347,7 +278,7 @@ display &
 \hline
 \end{tabularx}
 
-\subsection{\textsc{Transfer prescription}}
+\section{\textsc{Transfer prescription}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -371,7 +302,7 @@ display &
 \hline
 \end{tabularx}
 
-\subsection{\textsc{Cancel prescription transfer}}
+\section{\textsc{Cancel prescription transfer}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -396,8 +327,8 @@ display &
 
 \newpage
 
+\chapter {\noun{Functionalites of patient's card}}
 
-\section{\textsc{Functionalites of patient's card}}
 
 The patient's card implements following functions:
 \begin{itemize}
@@ -406,7 +337,7 @@ The patient's card implements following functions:
 \end{itemize}
 They are discussed in greater detail below.
 
-\subsection{\textsc{Sign request}}
+\section{\textsc{Sign request}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -431,7 +362,7 @@ result &
 \hline
 \end{tabularx}
 
-\subsection{\textsc{PIN verification}}
+\section{\textsc{PIN verification}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -458,14 +389,13 @@ result &
 
 \newpage
 
-
-\section{\textsc{Sequence diagrams}}
+\chapter {\noun{Sequence diagrams}}
 
 \FloatBarrier
-\subsection{\textsc{Sequence diagram for connection initialization}}
+\section{\textsc{Sequence diagram for connection initialization}}
 
 \begin{figure}[!h]
-\includegraphics[width=\linewidth]{initializeConnectionSequenceDiagram}
+\includegraphics[width=\linewidth]{patient/initializeConnectionSequenceDiagram}
 \caption{Connection initialization}	
 \end{figure}
 When the patient connects to the system, he needs to enter the PIN. 
@@ -477,9 +407,9 @@ From this point, the communication between the Patient’s Application and the d
 \FloatBarrier
 
 \newpage
-\subsection{\textsc{Sequence diagram for transfer prescription functionality}}
+\section{\textsc{Sequence diagram for transfer prescription functionality}}
 \begin{figure}[!h]
-\includegraphics[width=\linewidth]{transferPrescriptionSequenceDiagram}
+\includegraphics[width=\linewidth]{patient/transferPrescriptionSequenceDiagram}
 \caption{Transfer prescription}
 \end{figure}
 This sequence is executed after establishing a secure connection with the database.\\
@@ -495,9 +425,9 @@ DB verifies both the request and the signature. If the verification was successf
 \FloatBarrier
 
 \newpage
-\subsection{\textsc{Sequence diagram for browse medicines functionality}}
+\section{\textsc{Sequence diagram for browse medicines functionality}}
 \begin{figure}[!h]
-\includegraphics[width=\linewidth]{browseMedicinesSequenceDiagram}
+\includegraphics[width=\linewidth]{patient/browseMedicinesSequenceDiagram}
 \caption{Browse medicines}
 \end{figure}
 To browse medicines, the patient needs to choose browse medicines functionality in the Patient’s Application. 
@@ -506,14 +436,13 @@ The request is sent to the database afterwards.
 The database returns a list of medicines which is displayed to the patient in the Patient’s Application.
 \newpage
 
-
-\section{\textsc{Security}}
+\chapter {\noun{Security}}
 
 Both security mechanisms used in the patient's module and their justification are described in the following sections.
 
 \subsection{\textsc{Used security mechanisms}}
 
-\subsubsection{\textsc{Smart card}}
+\subsection{\textsc{Smart card}}
 
 \begin{tabularx}{\textwidth}{ |p{2.5cm}|X| }
 	\hline
@@ -548,7 +477,7 @@ PIN &
 \hline
 \end{tabularx}
 
-\subsubsection{\textsc{Authentication}}
+\subsection{\textsc{Authentication}}
 
 Patient's authentication is constructed as a two factor process. It includes the following points:
 \begin{itemize}
@@ -556,34 +485,33 @@ Patient's authentication is constructed as a two factor process. It includes the
 \item Something you know - PIN needed to access smart card's functionalities
 \end{itemize}
 
-\subsubsection{\textsc{Connection}}
+\subsection{\textsc{Connection}}
 
 The connection between the application and the database is established by two-way SSL protocol. Whole communication afterwards would be sent by encrypted SSL channel. We assume that if the connection was lost, the whole authentication process needs to be repeated.
 
-\subsection{\textsc{Justification}}
+\section{\textsc{Justification}}
 
-\subsubsection{\textsc{PIN protection}}
+\subsection{\textsc{PIN protection}}
 
 The PIN number is used to authenticate the cardholder. We propose 4-digit PIN number. Three subsequent incorrect attempts will block the card. Similar mechanism is already used e.g. in ATM cards.	
 
-\subsubsection{\textsc{Secure communication with the database}}
+\subsection{\textsc{Secure communication with the database}}
 
 The communication channel between the database and the application is secured with a two way SSL protocol. We assume that SSL provides all necessary mechanisms to protect the channel from attacks.
 
-\subsubsection{\textsc{Protection against prescription overtaking}}
+\subsection{\textsc{Protection against prescription overtaking}}
 
 Transfer prescription request have to be signed by the patient using his private key in order to not give buying rights to unauthorized person. If the patient has made a mistake during prescription transfer, he is able to cancel and redo the transfer correctly.
 
-\subsubsection{\textsc{Protection against prescription duplication}}
+\subsection{\textsc{Protection against prescription duplication}}
 
 Transfer and cancel transfer prescription functionalities have to be performed in transaction environment by the database. In this way, there would be no possibility that both the patient and new owner could buy the prescription simultaneously.
 
 
-\subsection{Advantages of system}
+\section{Advantages of system}
 
 Our system is designed in way that any defraudation of purchasing not prescribed medicine is impossible, pharmacist can not do any defraudation on transaction of seeling drugs to the patient which were not previously prescribed by the doctor, because to every transaction our system demands patient's smart card with previously issued prescription by the doctor and signed by his smart card.
 \\
 
 The above security assure very secure system of digital signatures and certificates which will be implemented in our application on smart cards and users programs. This system will prevent any defraudation from users (patient/ pharmacist/ doctor) and also simplify any financial settlement between pharmacist and NFZ, furthermore system will be very comfortable and easy to use for every user.
-\end{document}
 

@@ -24,6 +24,19 @@
 \usepackage{afterpage}
 \usepackage{framed}
 
+\usepackage{tabularx}
+\usepackage{graphicx}
+%\usepackage{courier}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{hyphenat}
+%\usepackage{pslatex}
+%\usepackage{ulem}
+%\usepackage{url}
+%\usepackage{here}
+%\usepackage{ltablex}
+\usepackage{placeins}
+
 
 %
 %--------------------   start of the 'preamble'
@@ -99,26 +112,60 @@
 \thispagestyle{empty}
 \titleGM
 
-\chapter*{Authors}
-\begin{itemize}
+% first column
 
-\item[] Zbginiew \textsc{Dobosiewicz}
-\item[] Olga \textsc{Dzięgielewska} 
+
+
+\chapter*{Authors}
+\begin{minipage}[t]{0.5\textwidth}
+\section*{Database Group}
+\begin{itemize}
+%baza danych 
 \item[] Michał \textsc{Kaczmarek} 
 \item[] Paweł \textsc{Kędzia} 
-\item[] Marcin \textsc{Klepaczka} 
+\item[] Jakub \textsc{Płaskonka} 
+\item[] Mateusz \textsc{Płatek} 
+\item[] 
+\end{itemize}
+
+\section*{Doctor Group}
+\begin{itemize}
 \item[] Krystian \textsc{Krakowiak}
 \item[] Piotr \textsc{Lipiak} 
+
+\end{itemize}
+
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+
+\section*{Patient Group}
+\begin{itemize}
+\item[] Zbginiew \textsc{Dobosiewicz}
 \item[] Maciej \textsc{Niemczyk} 
 \item[] Paweł \textsc{Nużka} 
 \item[] Bartłomiej \textsc{Paciorek}
 \item[] Bartosz \textsc{Piwowarski}
-\item[] Jakub \textsc{Płaskonka} 
-\item[] Mateusz \textsc{Płatek} 
+\end{itemize}
+
+\section*{Pharmacy Group}
+\begin{itemize}
+\item[] Olga \textsc{Dzięgielewska} 
+\item[] Marcin \textsc{Klepaczka} 
 \item[] Andrzej \textsc{Rybczak} 
 \item[] Jan  \textsc{Szajda}
 \end{itemize}
 
+\end{minipage}
+
+ \begin{center}
+\section*{\textsc{Supervisor}}
+
+\begin{itemize}
+\item[] {\hfil Ph.D. Łukasz \textsc{Krzywiecki} }
+\end{itemize}
+
+  
+ \end{center}
   
 %-----------------------------------------------------------
 \lhead[]{\textit{Prescriptions management: Contents }}
@@ -138,7 +185,6 @@
 
 \lhead[]{\textit{Prescriptions management: Introduction }}
 \part{\noun{Introduction}}
-John \textsc{Smith}
 
 \include{current-situation}
 \include{threats-and-inconveniences}
@@ -165,11 +211,11 @@ John \textsc{Smith}
 \lhead[]{\textit{Prescriptions management: Patient }}
 %---------------PATIENT
 \part{\noun{Patient}}
+\include{patient/patient}
 \lhead[]{\textit{Prescriptions management: Doctor }}
 %---------------DOCTOR
 \part{\noun{Doctor}}
-
-
+\include{doctor/Doctor}
 %-----------------------------------------------------------
 %\addcontentsline{toc}{chapter}{\numberline{}Bibliography}
 %\include{biblio}
