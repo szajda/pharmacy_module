@@ -1,11 +1,11 @@
 \chapter{\noun{System Goals}}
 
-The system has to eliminate each of the flaws described in previous chapter.
+The main objectives of our new design of the prescription management system is to limit the impact of the threats listed in Chapter \ref{ti} and improve the usability of the current system.
 It will meet each of following requirements:
 \begin{enumerate}
 \item Prescriptions will be digitalized.
 \item Prescriptions will be hard to forge.
-\item Doctors won't be able to create prescriptions without knowledge of patient.
+\item Doctors will not be able to create prescriptions without knowledge of patient.
 \item Prescriptions will be realized only by users with right credentials.
 \item Patients and doctors will be able to browse history of prescriptions.
 \item System will be secured with most up-to-date measures.
@@ -15,28 +15,56 @@ It will meet each of following requirements:
 \newpage
 \section{\noun{Central Server Objectives}}
 
-The central server will be the core component of the whole digital prescriptions system. Key features of central server are:
+The central server will be the core component of the whole digital prescriptions system. Key features of the central server are:
 \begin{itemize}
- \item Holding data of patients, doctors and pharmacists
- \item Allowing doctors to create prescriptions
- \item Allowing doctors and patients to review history of created prescriptions
- \item Allowing patients to transfer the ownership of prescription in secure, controlable manner
- \item Allowing pharmacists to review prescriptions yet to be realized
- \item Allowing prescription realization only if patient will be present at this event
- \item Validating the signatures of each party
- \item Providing annonymous statistics
+ \item storing data of patients, doctors and pharmacists,
+ \item allowing doctors to create prescriptions,
+ \item allowing doctors and patients to review history of created prescriptions,
+ \item allowing patients to transfer the ownership of prescription in secure, controlable manner,
+ \item allowing pharmacists to review prescriptions yet to be realized,
+ \item allowing prescription realization only if patient will be present at this event,
+ \item validating the signatures of each party,
+ \item providing annonymous statistics.
 \end{itemize}
 
 \section{\noun{Pharmacy Module Objectives}}
 
-The main objectives of our new design of the pharmacy module is to limit the impact of the threats listed in Chapter \ref{ti} and improve the usability of the current system.
-\newline
-\textbf{ The patient} has to be sure that his sensitive data is stored in a secure way, and unauthorized person cannot get to know anything about his medicines and illnesses. 
-\newline
-\textbf{The pharmacist} has to be sure that he sells the right medicines only for the right patient. 
-\newline
-\textbf{The refund process} should be quicker and easier. 
-\newline
-\textbf{The} possibility of making \textbf{mistakes} on the prescription should be eliminated. 
-\newline
-\textbf{The} number of \textbf{defraudations} should be significantly limited.
+The pharmacy module objectives are:
+\begin{itemize}
+\item  The patient has to be sure that his sensitive data is stored in a secure way, and unauthorized person cannot get to know anything about his medicines and illnesses. 
+\item The pharmacist has to be sure that he sells the right medicines only for the right patient. 
+\item The refund process should be quicker and easier. 
+\item The possibility of making mistakes on the prescription should be eliminated. 
+\item The number of defraudations should be significantly limited.
+\end{itemize}
+
+\section{\textsc{Patient Module Objectives}}
+
+The patient's  module objectives are:
+\begin{itemize}
+\item Possibility to get prescriptions without leaving home.
+\item Functionality of transferring prescription to another person's account.
+\item Availability of prescription history for a doctor.
+\item Possibility to browse the list of medicines, doctors and pharmacies.
+\end{itemize}
+
+The prescription system from the patient point of view is based on smart cards. 
+Each patient has a unique card with ID and a pair of cryptographic keys used to create a signature. 
+The system could be easily combined with electronic IDs, when they become available in Poland.
+
+The benefit of our system is that the patient could get the prescription without leaving home. 
+He could request medicines by calling the doctor, who would prescribe them and make available on patient's account. 
+In order to decrease the refund fraud problem, the patient has to realize the prescription in pharmacy by himself. 
+If he is unable to realize it, he would be able to transfer it onto another person's account. 
+Realization of a transferred prescription would only be possible for the person designed by the patient. 
+However, if the patient would like to change the designed person or make the prescription again available for him to realize, he would be able to cancel the transfer.
+
+Both the patient and the doctor (with patient's permission) are able to browse all of the patient's previous prescriptions. 
+It could be helpful to reduce possibility of interactions between drugs prescribed by different specialists. 
+Also, doctors would not be able to abuse this functionality, because it would require the patient to insert his smart card into the terminal in doctor's office.
+
+Patient is able to browse the list of medicines, doctors and pharmacies. 
+Thanks to this, he could easily check the leaflet of the medicine, find the phone number to the doctor or check the opening hours of the pharmacy.
+
+
+

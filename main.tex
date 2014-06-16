@@ -14,6 +14,9 @@
 \usepackage{color}
 \usepackage{array}
 \usepackage{longtable}
+\usepackage{verbatim}
+\usepackage{alltt}
+
 \usepackage{multirow}
 \usepackage{setspace}
 \usepackage{hyperref}
@@ -26,6 +29,11 @@
 
 \usepackage{tabularx}
 \usepackage{graphicx}
+\usepackage[]{hyperref}
+
+\makeatletter
+\@addtoreset{chapter}{part}
+\makeatother  
 %\usepackage{courier}
 %\usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
@@ -158,6 +166,16 @@
 \end{minipage}
 
  \begin{center}
+\section*{\textsc{Project Manager}}
+
+\begin{itemize}
+\item[] {\hfil Olga \textsc{Dzięgielewska} }
+\end{itemize}
+
+  
+ \end{center}
+
+ \begin{center}
 \section*{\textsc{Supervisor}}
 
 \begin{itemize}
@@ -210,11 +228,11 @@
 \include{sequence_diagram}
 \lhead[]{\textit{Prescriptions management: Patient }}
 %---------------PATIENT
-\part{\noun{Patient}}
+\part{\noun{Patient Module}}
 \include{patient/patient}
 \lhead[]{\textit{Prescriptions management: Doctor }}
 %---------------DOCTOR
-\part{\noun{Doctor}}
+\part{\noun{Doctor Module}}
 \include{doctor/Doctor}
 %-----------------------------------------------------------
 %\addcontentsline{toc}{chapter}{\numberline{}Bibliography}

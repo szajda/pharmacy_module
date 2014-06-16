@@ -10,7 +10,7 @@ All the system's users will be given personalized smart cards which will store t
 
 To improve the security level of the system, the data  stored on smart cards should be enciphered. Users' private keys need to be stored in a secure memory which cannot be directly read out. 
 
-Keys used for connecting and authorising should have sufficient length to provide security. If the RSA key is used it should have length of at least 2048 bits. 
+Keys used for connecting and authorizing should have sufficient length to provide security. If the RSA key is used it should have length of at least 2048 bits. 
 
 In case of loosing a smart card, a user should perform a standardized revocation procedure. First, he should block a card in the assigned institution and while doing this he should be able to select whether he want to block the card temporarily or permanently. In the first case, after finding the card it is possible to unblock it with card's PUK number. In the second case it is necessary to generate new user's card and even after finding the card it will not be possible to unblock it.
 
@@ -30,7 +30,7 @@ In Two-Way SSL both parties (client and server) need the certificates. Each user
 
 In case of selecting permanent blocking option during the revocation procedure, a new certificate is generated for such user.
 
-The certificate's validity should be checked at each use of the user's smartcard. The validity check is performed in the database module.
+The certificate's validity should be checked at each use of the user's smart card. The validity check is performed in the database module.
 
 
 
@@ -49,14 +49,15 @@ Central server will be constructed of several components. In order to provide al
 \item \textbf{database layer} - PostgreSQL version 9.3
 \end{enumerate}
 
-\subsection{\noun{The Pharmacy Module}}
+\subsection{\noun{Users Modules}}
 
-The pharmacy module architecture consists of the following elements:
+The users modules architecture consists of the following elements:
 \begin{enumerate}
 \item \textbf{smart cards} with personal certificate, used for the authentication and signing, and an application which allows to read certain data from the card;
-\item \textbf{pharmacist's PC} with a pharmacy module application which provides all of the functionalities which satisfy all the operation performed in a pharmacy; provides two user-friendly interfaces: one for a patient and one for a pharmacist; is connected with patient’s and pharmacist’s terminals and the central database; is able to execute SIGMA protocol, handle secure keys storage and establish SSL connection;
+\item \textbf{pharmacist's PC, patient's PC or doctor's PC } with a corresponding module application which provides all of the functionalities which satisfy all the operation performed by the pharmacists, doctor or a patient; provides two user-friendly interfaces; is connected with appropriate terminals and the central database; is able to execute SIGMA protocol, handle secure keys storage and establish SSL connection;
 \item{\textbf{central DB}} is a central element of the whole system; stores the data and handles all the necessary database I/O functions.
 \end{enumerate}
+
 
 \section{\noun{Protection and Security}}
 
@@ -124,7 +125,7 @@ Two-way SSL connection is used along with additional nonce-based authentication.
 The PIN number is used to authenticate the card holder. In case the card was lost and found by someone else, he won't be able to use the card without knowing the PIN. We propose 4-digit PIN number with three subsequent incorrect attempts before the card is blocked as it's already used e.g. in ATM cards and proven to work there.
 
 \subsubsection{\noun{SIGMA protocol}}
-This AKE protocol (we choose to use SIGMA, but that is by no means the ultimate choice. It's been chosen due to convenience of having the implementation already in place. If one wishes, it can be replaced by other AKE protocol, e.g. NAXOS) will be used to secure the communication channels between parties existing in the pharmacy, i.e. cards and application. AKE protocols provide not only secure communication but also authentication mechanism, preventing not only eavesdropping or man-in-the-middle attacks but also party substitution.
+This AKE protocol (we choose to use SIGMA, but that is by no means the ultimate choice. It's been chosen due to convenience of having the implementation already in place. If one wishes, it can be replaced by other AKE protocol, e.g. NAXOS, NAXOS+, SMQV, CMQV, UKS, KCI, eKCI) will be used to secure the communication channels between parties existing in the pharmacy, i.e. cards and application. AKE protocols provide not only secure communication but also authentication mechanism, preventing not only eavesdropping or man-in-the-middle attacks but also assures security under ephemeral and static keys leakage.
 
 \subsubsection{\noun{Secure key disposal}}
 All short term keys, i.e. ephemeral keys used using AKE protocol or session keys which are the result of the protocol are erased from memory immediately after they are no longer needed.

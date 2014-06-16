@@ -25,7 +25,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Allows to find doctor with specific name, address or license number. \\ \hline
     Scenario: & User enters any or all of name, address and license number of searched doctor. \\ \hline
     Result: & List of doctors corresponding to the query. \\ \hline
-    Database  method: & browse\_doctors \\ \hline
+    Database  method: & \texttt{browse\_doctors} \\ \hline
     
 \end{longtable}
 
@@ -36,7 +36,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Allows to find pharmacist and pharmacy with specific name, address or license number. \\ \hline
     Scenario: & User enters any or all of name, address, license number of searched pharmacist or pharmacy name. \\ \hline
     Result: & List of pharmacists corresponding to the query. \\ \hline
-    Database  method: & browse\_pharmacies \\ \hline
+    Database  method: & \texttt{browse\_pharmacies} \\ \hline
 
 \end{longtable}
 
@@ -47,7 +47,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Allows to find medicine with specific name or type. \\ \hline
     Scenario: & User enters name or/and type of medicine he is searching. \\ \hline
     Result: & List of medicines corresponding to the query. \\ \hline
-    Database  method: & browse\_medicines \\ \hline
+    Database  method: & \texttt{browse\_medicines} \\ \hline
     \end{longtable}
 
 \normalsize
@@ -61,7 +61,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Allows to transfer a prescription to another patient and give him credentials to realize this prescription. Patient who transferred the prescription losses his right to realize it by himself. If he wants the prescription back he has to cancel the transfer (next use case). \\ \hline
     Scenario: & Patient enters his id, id of new owner, the prescription id he wants to transfer and his signature. \\ \hline
     Result: & OK response from database and iId of new owner of prescription. \\ \hline
-    Database  method: & transfer\_prescription \\ \hline
+    Database  method: & \texttt{transfer\_prescription} \\ \hline
 \end{longtable}
 
     \begin{longtable}{| p{6cm} | p{7.75cm} |}
@@ -70,7 +70,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Allows to revert transfering of prescription to another patient. \\ \hline
     Scenario: & Patient enters his id, prescription id he wants transfers to revert and his signature. \\ \hline
     Result: & OK response from database. \\ \hline
-    Database  method: & cancel\_prescription\_transfer \\ \hline
+    Database  method: & \texttt{cancel\_prescription\_transfer} \\ \hline
 \end{longtable}
 
     \begin{longtable}{| p{6cm} | p{7.75cm} |}
@@ -79,7 +79,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Patient can see his history of realized and created prescriptions.\\ \hline
     Scenario: & Patient sends his id which is signed by his key from smartcard. Patient can define the time span of returned prescriptions as also a filter to only return prescriptions which aren't realized yet. \\ \hline
     Result: & List of prescriptions for the patient. \\ \hline
-    Database  method: & browse\_prescription\_history \\ \hline
+    Database  method: & \texttt{browse\_prescription\_history} \\ \hline
 
 \end{longtable}
 
@@ -94,7 +94,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Allows to create a new prescription in database for selected patient..\\ \hline
     Scenario: & Doctor enters his and patients ids, as well as the data specific to the medicine - id, dosage, unit and quanitity. Everything is signed by his key. \\ \hline
     Result: & OK response from database. \\ \hline
-    Database  method: & create\_prescription \\ \hline
+    Database  method: & \texttt{create\_prescription} \\ \hline
     \end{longtable}
 
 
@@ -105,7 +105,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Doctor can see patient history of realized and created prescriptions..\\ \hline
     Scenario: & Doctor sends his id - he will see all prescriptions created by him. If he will add the id of patient with patients signature, he will see the full history of prescriptions of current patient. Doctor can define the time span of returned prescriptions as also a filter to only return prescriptions which aren't realized yet. \\ \hline
     Result: & List of prescriptions for the patient. \\ \hline
-    Database  method: & browse\_patient\_prescription\_history \\ \hline
+    Database  method: & \texttt{browse\_patient\_prescription\_history} \\ \hline
     \end{longtable}
 \normalsize
 
@@ -118,7 +118,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Pharmacist realizes the prescription. DB checks if the request can be verified and if the prescription is valid.\\ \hline
     Scenario: & Pharmacist enters his id, prescription id as well as drugs id, dosage and qunatity of medicine. Everything is signed by pharmacist key. \\ \hline
     Result: & OK response from database if operation was successful. \\ \hline
-    Database  method: & prescription\_realization \\ \hline
+    Database  method: & \texttt{prescription\_realization} \\ \hline
     \end{longtable}
 
 
@@ -129,7 +129,7 @@ Rest of use cases which are applicable to only one actor is described in their r
     Goal: & Pharmacist can see prescriptions which are not yet realized. \\ \hline
     Scenario: & Pharmacist sends his id and id of current patient which are signed by both of their keys. Pharmacist can see only prescriptions which are not yet realized. \\ \hline
     Result: & List of prescriptions for the patient. \\ \hline
-    Database  method: & browse\_active\_prescriptions \\ \hline
+    Database  method: & \texttt{browse\_active\_prescriptions} \\ \hline
     \end{longtable}
 
 \normalsize

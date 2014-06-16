@@ -1,9 +1,5 @@
 \chapter{\noun{Communication}}
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{database/sequence.png}
-\caption{General communication diagram for patient, pharmacist and doctor}
-\end{figure} 
+
 Every communication with database can be described by one abstract scenario.
 First central server and client establish session via SSL. After correct establishment of session, client chooses one of database functions that he can execute with appropriate arguments. Before using methods requiring signatures, client has to ask server for nonce, generated specially for the user. After obtaining the nonce, client can execute selected function.
 Database verifies the correctness of signature and data passed in arguments and returns the result, or if one of the verification steps failed, error message.
@@ -13,19 +9,28 @@ Database verifies the correctness of signature and data passed in arguments and 
 \begin{enumerate}
 \item Enter smartcard with users private key and certificate (or establish paths to them)
 \item set path of PostgreSQL to environment variable PATH.
-
-\item in command line write $psql$ $'host=hosts_ip$ $port=port\_address$ $dbname=database\_name$ $user=username$ $sslmode=require$ $sslcert=user.crt$ $sslkey=user.key$ $sslrootcert=ca.crt'$ where:
+\item in command line write\small
+\begin{alltt}psql 'host=hosts_ip port=port\_address dbname=database\_name \newline user=username sslmode=require sslcert=user.crt sslkey=user.key \newline sslrootcert=ca.crt'\end{alltt}\normalsize where:
+\small
 	\begin{packed_enum}
-	\item $host$ - IP of server where database is
-	\item $dbname$ - is the name of database to which we want to connect
-	\item $user$ - name of user which want to connect. Each part will have its own user name.
-	\item $sslcert$ - certificate of user.
-	\item $sslkey$ - private key of user.
-	\item $sslrootcert$ - Certificate of CA.
+	\item \texttt{host} - IP of server where database is
+	\item \texttt{dbname} - is the name of database to which we want to connect
+	\item \texttt{user} - name of user which want to connect. Each part will have its own user name.
+	\item \texttt{sslcert} - certificate of user.
+	\item \texttt{sslkey}- private key of user.
+	\item \texttt{sslrootcert} - Certificate of CA.
 	\end{packed_enum}
-	Example login: $psql$ $'host=95.85.28.156$ $port=5432$ $dbname=PrescriptionSystemMk2$ $user=patient$ $sslmode=require$ $sslcert=patient.crt$ $sslkey=patient.key$ $sslrootcert=ca.crt'$
+
+	Example login: 
+\begin{alltt}psql 'host=95.85.28.156 port=5432 dbname=PrescriptionSystemMk2 \newline user=patient sslmode=require sslcert=patient.crt sslkey=patient.key \newline sslrootcert=ca.crt'\end{alltt}
+\normalsize
 \item enter password
 \end{enumerate}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{database/sequence.png}
+\caption{General communication diagram for patient, pharmacist and doctor}
+\end{figure} 
 
 \section{\noun{Nonces \& Verification Proccess}}
 
